@@ -223,4 +223,14 @@ select trunc(1234.5678, 2) as TRUNC_2 from dual;
 -- 1234.56
 ```
 
+nullif, coallesce (널값 검사)
+
+decode(if else와 비슷), case(앞과 비슷)
+
+
 ### 날짜 데이터 함수
+
+add_months (특정날짜 + 개월수), months_between(두 날짜의 개월수 차이), next_day(돌아오는 요일), last_day(달의 마지막 날의 요일)
+
+round, trunc 
+
