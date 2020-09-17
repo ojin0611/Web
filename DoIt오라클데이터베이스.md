@@ -9,29 +9,9 @@ Database를 조작하는 프로그램을 DBMS라고 한다. 그중 관계형 DB�
 근데 RDBMS를 사용하기 위한 툴들이 또 있는데, SQL*Plus(오라클 내장, cmd로 진행해서 불편), SQL Developer(오라클 전용), WorkBench(MySQL 전용)가 여기 속한다.
 
 
-
-SQL 5대 객체
-
-1. 테이블
-2. 뷰
-3. 인덱스
-4. 시퀀스
-5. 동의어
-
-
-----
-
-1. 프로시저
-2. 함수
-3. 커서
-4. 트리거
-5. 패키지
-
-
-
 8/26
 
-[갓 주영님의 정리](https://docs.google.com/document/d/1U0XinMyf8pfwH0eGmcYyl2psefuA-oSjr37NrGv_1y4/edit?usp=sharing)
+[갓주영님의 정리](https://docs.google.com/document/d/1U0XinMyf8pfwH0eGmcYyl2psefuA-oSjr37NrGv_1y4/edit?usp=sharing)
 
 [Oracle 수업교안]([https://github.com/swacademy/Oracle/blob/master/1.%20Introduction.pdf](https://github.com/swacademy/Oracle/blob/master/1. Introduction.pdf))
 
@@ -82,6 +62,8 @@ grant resource, connect to scott;
 - DEPT : 부서정보
 - SALGRADE : 급여정보
 - BONUS : 보너스
+
+##  SELECT
 
 SELECT의 기능
 
@@ -182,7 +164,7 @@ SET NLS_DATE_FORMAT = 'YYYY-MM-DD';
 
 
 
-## 오라클 함수
+# 데이터 처리와 가공을 위한 오라클 함수
 
 ### 문자열 함수
 
@@ -233,4 +215,213 @@ decode(if else와 비슷), case(앞과 비슷)
 add_months (특정날짜 + 개월수), months_between(두 날짜의 개월수 차이), next_day(돌아오는 요일), last_day(달의 마지막 날의 요일)
 
 round, trunc 
+
+sysdate(실행시킬 때의 시간)
+
+
+### 자료형 변환 함수
+
+to_char (날짜, 숫자 -> 문자)
+```
+select to_char(sysdate, 'yyyy/mm/dd hh24:mi:ss') as 현재날짜시간
+from dual;
+```
+
+위의 yyyy, mm 등은 날짜 데이터를 표현하기 위한 형식이다. 
+
+특정 언어에 맞춰서 날짜를 출력하기 위해서는 `nls_date_language = 'KOREAN'`를 이용해주자.
+
+to_number (문자 -> 숫자)
+`TO_NUMBER('[문자열 데이터(필수)]', '[인식될 숫자형태(필수)]')`
+
+to+date (문자 -> 날짜)
+
+
+### Null 처리 함수
+
+NVL (위에서 언급)
+```
+select nvl(comm, 0)
+from employees;
+```
+
+NVL2 (null이 아닐때 반환할 데이터를 추가로 지정할 수 있다)
+```
+select nvl(comm, 'O', 'X')
+from emp;
+```
+
+### 상황에 따라 다른 데이터 반환
+
+DECODE (switch-case와 유사)
+```
+select decode(job,
+'manager', sal*1.1,
+'salesman', sal*1.05,
+'analyst', sal,
+sal*1.03) as upsal
+from emp;
+```
+
+
+CASE (위와 비슷한데 속도가 더 빠름. 가독성도 좋음. CASE 사용하자)
+
+```
+select 
+case job
+    when 'manager' then sal*1.1
+    when 'salesman' then sal*1.05
+    when 'analyst', sal
+    else sal*1.03
+end as upsal
+from emp;
+```
+
+# 다중행 함수와 데이터 그룹화
+
+SUM, COUNT, MAX, MIN, AVG
+
+GROUP BY (순서는 아래와 같다)
+```
+select [조회할 열 이름]
+from [조회할 테이블 이름]
+where [조건식]
+group by [그룹화할 열 지정]
+order by [정렬하려는 열 지정]
+```
+
+### group by 절에 조건 줄 때 사용하는 HAVING절
+
+그룹화된 결과 중 출력 그룹을 선별하는 조건식을 지정한다.
+
+where가 having보다 먼저 실행된다.
+```
+select [조회할 열 이름]
+from [조회할 테이블 이름]
+where [조건식]
+group by [그룹화할 열 지정]
+having [출력 그룹을 제한하는 조건식]
+order by [정렬하려는 열 지정]
+```
+
+### 그룹화와 관련된 함수들
+group by 절에 지정할 수 있는 특수 함수들이 있습니다.
+
+ROLLUP (명시한 열을 소그룹부터 대그룹의 순서로 각 그룹별 결과를 출력하고, 마지막에 총 데이터의 결과를 출력)
+
+
+CUBE (지정한 모든 열에서 가능한 조합의 결과를 모두 출력)
+
+
+GROUPING SETS (같은 수준의 그룹화 열이 여러개일 때 각 열별 그룹화를 통해 결과 값을 출력)
+
+grouping (그룹화 여부 표시), listagg (데이터 가로로 나열)
+
+pivot, unpivot
+
+# Join
+
+집합 연산자와 다르게 join은 테이블을 **가로**로 연결한 것이다.
+
+테이블 명은 별칭으로 표현할 수 있다.
+
+```
+SELECT E.EMPNO, E.ENAME, E.SAL, E.DEPTNO, D.DNAME, D.LOC
+FROM EMP E, DEPT D
+WHERE E.DEPTNO = D.DEPTNO
+PRDER BY EMPNO;
+```
+
+조인의 종류는 데이터를 어떻게 연결하느냐에 따라 **등가 조인**, **비등가 조인**, **자체 조인**, **외부 조인** 등으로 구분한다.
+
+## 등가 조인 
+a.k.a 내부조인(inner join), 단순 조인(simple join)
+
+특정 열 값이 일치한 출력 결과를 사용하는 방식으로 일반적으로 가장많이 사용되는 조인방식이다.
+
+
+## 비등가 조인
+
+등가조인 외의 방식을 비등가조인이라고 한다. 자주사용되지는 않지만, 특정 열의 일치여부를 검사하는 방식 외에 다른 방식(두 값의 사이)을 조건으로 사용하고 싶을 때 사용된다.
+
+## 자체 조인
+
+똑같은 테이블을 하나 더 만들어 조인해주는 것을 자체 조인이라고 한다.
+
+## 외부 조인
+
+두 테이블간 조인 수행에서 조인 기줄 열의 어느 한 쪽이 NULL이어도 강제로 출력하는 방식을 외부조인이라고 한다. 좌우를 따로 나누어 지정하며, 기준 열 중 한쪽에 (+) 기호를 붙여준다.
+
+```
+SELECT E1.EMPNO, E1.ENAME, E1.MGR,
+E2.EMPNO AS MGR_EMPNO,
+E2.ENAME AS MGR_ENAME,
+FROM EMP E1, EMP E2
+WHERE E1.MGR = E2.EMPNO(+)
+ORDER BY E1.EMPNO;
+```
+
+
+## 표준 문법 - 조인
+
+SQL 표준문법에서 사용되는 키워드들의 사용법
+
+### NATURAL JOIN
+
+등가 조인을 대신해 사용할 수 있는 조인방식.
+
+두 테이블에 이름과 자료형이 같은 열을 찾은 후, 그 열을 기준으로 등가 조인을 해주는 방식이다. 조인 기준 열을 SELECT 절에 명시할 때 테이블 이름을 붙이면 안된다.
+
+### JOIN ~ USING
+
+NATURAL JOIN은 자동으로 조인 기준열을 지정하는 반면, USING 키워드를 이용하면 키워드에 조인 기준으로 사용할 열을 명시하여 조인할 수 있다. 
+
+### JOIN ~ ON
+
+가장 범용성있는 키워드. 기존 where 절에 있는 조인 조건식을 ON 키워드 옆에 작성합니다. 조인 기준 조건식은 ON에 명시하고, 그 밖의 출력행을 걸러내기 위해 where 조건식을 따로 사용합니다.
+
+### OUTER JOIN
+
+외부 조인에 사용한다. 위의 외부 조인 코드를 아래와 같이 변경한다.
+
+```
+SELECT E1.EMPNO, E1.ENAME, E1.MGR,
+E2.EMPNO AS MGR_EMPNO,
+E2.ENAME AS MGR_ENAME,
+FROM EMP E1, EMP E2 OUTER JOIN EMP E2 ON (E1.MGR = E2.EMPNO)
+ORDER BY E1.EMPNO;
+```
+
+### 3개 이상의 테이블 조인
+
+1. 아래와 같이 사용해도 무방
+```
+FROM TABLE1, TABLE2, TABLE3
+WHERE TABLE1.COL = TABLE2.COL
+AND TABLE2.COL = TABLE3.COL
+```
+
+2. 조건이 필요할 때
+
+```
+FROM TABLE1 JOIN TABLE2 ON (조건식)
+JOIN TABLE3 ON (조건식)
+```
+
+---
+> 10 : DML (INSERT, UPDATE,DELETE)
+> 
+> 11 : TCL (COMMIT, ROLLBACK)
+> 
+> 12 : DDL (CREATE, DROP, ALTER, TRUNCATE, COMMENT)
+>
+> 13 : DICTIONARY (VIEW, Synonym, Index, Sequence)
+>
+> 14 : Constraints (default, PK, FK, UK, CK, NN)
+>
+> 15 : DCL (GRANT, ROLE)
+
+# 데이터 추가,수정,삭제 - Data Manipulation Language 
+
+DML이라고도 부르고 INSERT, UPDATE, DELETE문이 있다.
 
