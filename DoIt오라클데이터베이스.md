@@ -421,7 +421,120 @@ JOIN TABLE3 ON (조건식)
 >
 > 15 : DCL (GRANT, ROLE)
 
-# 데이터 추가,수정,삭제 - Data Manipulation Language 
+# 데이터 조작어 : 추가,수정,삭제 - Data Manipulation Language 
 
 DML이라고도 부르고 INSERT, UPDATE, DELETE문이 있다.
 
+## INSERT
+
+```
+INSERT INTO DEPT_TEMP (DEPTNO, DNAME, LOC)
+    VALUES (50, 'DATABASE', 'SEOUL');
+```
+
+열의 개수와 각 열에 입력할 데이터 개수가 일치해야한다.
+
+자료형이 같아야 한다.
+
+열 지정을 생략하면 순서대로 입력된다.
+
+NULL을 입력하고싶을 땐, 명시적으로 `NULL`을 입력하거나, 아예 열 이름을 비운다.
+
+
+
+## UPDATE
+
+```sql
+-- 데이터 전체 수정
+UPDATE DEPT_TEMP
+    SET LOC = 'SEOUL'
+```
+
+`ROLLBACK` : 수정한 내용 되돌리기 (COMMIT 반대)
+
+```sql
+-- 일부분 수정
+UPDATE DEMP_TEMP
+SET LOC = 'SEOUL'
+WHERE DEPTNO = 40;
+```
+
+## DELETE
+
+```sql
+DELETE FROM EMP_TEMP
+WHERE JOB='MANAGER'
+```
+
+DELETE는 ROLLBACK이 가능하다. (DML이기때문)
+
+반면, TRUNCATE는 ROLLBACK할 수 없다.
+
+# 데이터 정의어 - Data Definition Language
+
+데이터정의어는 데이터베이스 데이터를 보관하고 관리하기위해 제공되는 여러 객체의 생성,변경,삭제 관련 기능을 수행한다.
+
+DML과 달리 명령어를 수행하자마자 데이터베이스에 수행한 내용이 바로 반영된다. 따라서 ROLLBACK이 불가능하다.
+
+## CREATE
+
+```SQL
+CREATE TABLE EMP_DDL{
+    EMPNO       NUMBER(4),
+    ENAME       VARCHAR2(10),
+    JOB         VARCHAR2(9),
+    MGR         NUMBER(4),
+    HIREDATE    DATE,
+    SAL         NUMBER(7,2), -- 실수
+    COMM        NUMBER(7,2),
+    DEPTNO      NUMBER(2)
+};
+
+CREATE TABLE EMP_ALTER
+    AS SELECT * FROM EMP
+```
+
+## ALTER
+
+이미 생성된 오라클 데이터베이스 객체를 변경할 때 사용한다.
+
+```SQL
+-- 열 추가 ADD
+ALTER TABLE EMP_ALTER
+    ADD HP VARCHAR2(20)
+
+-- 열 이름 변경 RENAME
+ALTER TABLE EMP_ALTER
+    RENAME COLUMN HP TO TEL;
+
+-- 열 자료형 변경 MODIFY
+ALTER TABLE EMP_ALTER
+MODIFY EMPNO NUMBER(5);
+
+-- 특정 열 삭제
+ALTER TABLE EMP_ALTER
+DROP COLUMN TEL;
+```
+
+
+## 테이블 이름 변경 RENAME
+
+```SQL
+RENAME EMP_ALTER TO EMP_RENAME;
+```
+
+## TRUNCATE
+
+테이블의 모든 데이터만 삭제한다. 테이블 구조에는 영향이 없다.
+```SQL
+TRUNCATE TABLE EMP_RENAME;
+```
+
+## DROP
+
+데이터베이스 객체를 삭제한다. 테이블이 통째로 삭제된다.
+
+```SQL
+DROP TABLE EMP_RENAME;
+DESC EMP_RENAME; -- NOT FOUND
+```
