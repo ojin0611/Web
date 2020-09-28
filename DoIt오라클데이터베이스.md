@@ -421,7 +421,7 @@ JOIN TABLE3 ON (조건식)
 >
 > 15 : DCL (GRANT, ROLE)
 
-# 데이터 조작어 : 추가,수정,삭제 - Data Manipulation Language 
+# 데이터 조작어 : 추가,수정,삭제 - Data Manipulation Language (DML)
 
 DML이라고도 부르고 INSERT, UPDATE, DELETE문이 있다.
 
@@ -470,7 +470,7 @@ DELETE는 ROLLBACK이 가능하다. (DML이기때문)
 
 반면, TRUNCATE는 ROLLBACK할 수 없다.
 
-# 데이터 정의어 - Data Definition Language
+# 데이터 정의어 - Data Definition Language (DDL)
 
 데이터정의어는 데이터베이스 데이터를 보관하고 관리하기위해 제공되는 여러 객체의 생성,변경,삭제 관련 기능을 수행한다.
 
@@ -538,3 +538,407 @@ TRUNCATE TABLE EMP_RENAME;
 DROP TABLE EMP_RENAME;
 DESC EMP_RENAME; -- NOT FOUND
 ```
+
+
+# 제약 조건
+> NOT NULL : NULL 저장 허용하지 않음.  
+> UNIQUE : 유일한 값을 가져야함. NULL은 중복에서 제외  
+> PRIMARY KEY  
+> FOREIGN KEY : 다른 테이블의 열을 참조하여 존재하는 값만 입력 가능  
+> CHECK : 설정한 조건식을 만족하는 데이터만 입력 가능
+
+## 제약 조건 확인
+USER_CONSTRAINTS 데이터 사전을 활용한다.
+
+열 이름 : 설명
+> OWNER : 제약 조건 소유 계정  
+> CONSTRAINT_NAME : 제약조건 이름  
+> CONSTRAINT_TYPE : 제약조건 종류  
+> TABLE_NAME : 테이블 이름
+
+```SQL
+SELECT OWNER, CONSTRAINT_NAME, CONSTRAINT_TYPE, TABLE_NAME
+FROM USER_CONSTRAINTS;
+```
+
+## 제약조건 이름 직접지정
+
+```SQL
+CREATE TABLE TABLE_NOTNULL2(
+LOGIN_ID VARCHAR2(20) CONSTRAINT TBLNN2_LGNID_NN NOT NULL
+);
+```
+
+## 기존 테이블에 제약조건 지정
+```SQL
+ALTER TABLE TABLE_NOTNULL
+MODIFY(TEL NOT NULL);
+```
+## 제약조건 삭제, 이름수정
+
+```SQL
+ALTER TABLE TABLE_NOTNULL2
+DROP CONSTRAINT TBLNN2_TBL_NN;
+
+ALTER TABLE TABLE_NOTNULL2
+RENAME CONSTRAINT TBLNN_TEL_NN TO TBLNN3_TBL_NN
+```
+
+
+## NOT NULL
+
+```SQL
+CREATE TABLE TABLE_NOTNULL{
+    LOGIN_ID VARCHAR2(20) NOT NULL,
+    LOGIN_PWD VARCHAR2(20) NOT NULL,
+    TEL VARCHAR2(20)
+};
+```
+
+UNIQUE, PRIMARY KEY는 위의 NOT NULL을 바꿔쓰기만 하면 된다.
+
+## FOREIGN KEY
+
+```SQL
+CREATE TABLE 테이블이름(
+    ...(다른 열 정의),
+    열 자료형 CONSTRAINT [제약 조건 이름] REFERENCES 참조테이블(참조할 열)
+);
+
+CREATE TABLE EMP_FK(
+    EMPNO NUMBER(4) CONSTRAINT EMPFK_EMPNO_PK PRIMARY KEY
+    DEPTNO NUMBER(2) CONSTRAINT EMPFK_DEPTNO_FK REFERENCES DEPT_FK(DEPT_NO)
+);
+```
+
+### FOREIGN KEY로 참조 행 데이터 삭제하기
+원래는 FOREIGN KEY로 참조하고 있는 부모 테이블의 열의 값을 삭제할 수 없다. 이를 삭제하는 3가지 방법이 있다.
+
+1. 현재 삭제하려는 열 값을 참조하는 데이터를 먼저 삭제
+```SQL
+CONSTRAINT [제약조건 이름] REFERENCES 참조테이블(참조할 열) ON DELETE CASCADE;
+-- 부모 테이블의 데이터 삭제하면 해당 값 참조하는 자식 테이블의 데이터들이 삭제된다.
+```
+
+2. 현재 삭제라혀는 열 값을 참조하는 데이터를 수정
+```SQL
+CONSTRAINT [제약조건 이름] REFERENCES 참조테이블(참조할 열) ON DELETE SET NULL;
+-- 부모 테이블의 데이터 삭제하면 해당 값 참조하는 자식 테이블의 데이터들이 NULL로 수정된다.
+
+```
+
+3. 현재 삭제하려는 열을 참조하는 자식 테이블의 FOREIGN KEY 제약 조건 해제
+
+
+
+## 데이터 형태와 범위를 정하는 CHECK
+```SQL
+CREATE TABLE TABLE_CHECK(
+    LOGIN_PWD VARCHAR2(20) CONSTRAINT TBLCK_LOGINPW_CK CHECK (LENGTH(LOGIN_PWD)>3)
+);
+```
+
+## 기본값을 정하는 DEFAULT
+
+제약조건과 별개로, 특정 열에 저장할 값이 지정되지 않았을 경우에 기본값을 지정할 수 있다.
+```SQL
+CREATE TABLE TABLE_DEFAULT(
+    LOGIN_PWD VARCHAR2(20) DEFAULT '1234
+)
+
+```
+
+
+
+
+# 객체 종류
+테이블 외에도 자주 사용하는 객체들은 다음과 같습니다.
+- 데이터 사전
+- 인덱스
+- 뷰
+- 시퀀스
+- 동의어
+
+## 데이터 사전
+
+데이터베이스가 생성되는 시점에 자동으로 만들어지고, 데이터베이스 메모리/성능/사용자/권한/객체 등 오라클 데이터베이스 운영에 중요한 데이터가 보관돼있다.
+
+이 데이터에 문제가 발생하면 오라클 데이터베이스 사용이 불가능해질수도 있고, 때문에 데이터 사전에는 직접 접근할 수 없다. 대신 데이터 사전 뷰를 제공하여 SELECT로 정보 열람을 할 수 있다.
+
+### USER_ 접두어
+현재 오라클에 접속해있는 사용자가 소유한 객체 정보.
+```SQL
+SELECT TABLE_NAME
+FROM USER_TABLES;
+```
+
+### ALL_ 접두어
+접속중인 사용자가 소유한 객체 및 다른 사용자가 소유한 객체 중 사용이 허락되어 있는 객체 정보
+```SQL
+SELECT OWNER, TABLE_NAME
+FROM ALL_TABLES;
+```
+
+### DBA_ 접두어
+데이터베이스 관리 권한을 가진 사용자만 조회할 수 있는 테이블
+```SQL
+SELEVT * FROM DBA_TABLES;
+```
+
+## 인덱스
+
+```SQL
+-- 소유한 인덱스 정보
+SELECT * FROM USER_INDEXES;
+
+-- 소유한 인덱스 컬럼 정보
+SELECT * FROM USER_IND_COLUMNS;
+```
+
+### 생성, 삭제
+
+```SQL
+-- 생성
+CREATE INDEX IDX_EMP_SAL
+ON EMP(SAL)
+
+-- 삭제
+DROP INDEX IDX_EMP_SAL
+```
+
+## 뷰
+
+뷰는 가상테이블로, 하나 이상의 테이블을 조회하는 SELECT문을 저장한 객체다.
+
+뷰의 목적은 편리성(SELECT 문의 복잡도 완화)과 보안성(테이블의 특정 열 가리기)이다.
+
+뷰를 생성하기위해서는 `GRANT CREATE VIEW TO SCOTT`로 권한을 부여해줘야한다. 
+
+```SQL
+-- 생성
+CREATE [OR REPLACE] [FORCE || NOFORCE] VIEW 뷰이름 (열이름1, 열이름2, ...)
+AS (저장할 SELECT문)
+[WITH CHECK OPTION [CONSTRAINT 제약조건]] -- 제약조건 만족하면 DML 작업 가능하도록
+[WITH READ ONLY [CONSTRAINT 제약조건]]
+
+-- 삭제는 DROP
+```
+
+### ROWNUM 
+의사 열(pseudo column)이라는 특수 열. 실제 테이블에 존재하지는 않지만 특정 목적을 위해 테이블에 저장돼있는 열처럼 사용 가능한 열.
+
+ROWNUM 열 데이터 번호는 테이블에 저장된 행이 조회된 순서대로 매겨진 일련번호다.
+
+
+
+## 시퀀스
+
+시퀀스는 오라클 데이터베이스에서 특정 규칙에 맞는 연속 숫자를 생성하는 객체다.
+
+```SQL
+CREATE SEQUENCE SEQ_DEPT_SEQUENCE
+    INCREMENT BY 10 -- 10씩 증가
+    START WITH 10 -- 10부터 시작
+    MAXVALUE 90 -- 최대값
+    MINVALUE 0 -- 최소값
+    NOCYCLE -- 90 도달하면 0으로 안가고, 종료
+    CACHE 2 -- 시퀀스가 생성할 번호 메모리에 미리 할당해 놓은 수 지정.
+```
+
+### 시퀀스 사용
+`시퀀스이름.CURRVAL` 은 마지막으로 생성한 번호를 반환한다. 
+`시퀀스이름.NEXTVAL` 은 다음 번호를 생성한다.
+
+```SQL
+INSERT INTO DEPT_SEQUENCE (DEPTNO, DNAME, LOC)
+    VALUES (SEQ_DEPT_SEQUENCE.NEXTVAL, 'DATABASE', 'SEOUL');
+
+SELECT SQT_DEPT_SEQUENCE.CURRVAL
+FROM DUAL;
+```
+
+수정은 ALTER, 삭제는 DROP을 이용한다.
+
+## 동의어
+
+객체 이름 대신 사용할 수 있는 다른 이름을 부여하는 객체.
+```SQL
+CREATE SYNONYM E FOR EMP;
+
+SELECT * FROM E; -- EMP와 동일
+```
+
+
+# 서브쿼리
+
+SQL문 내부에서 사용하는 SELECT문.  서브쿼리 결과값을 사용하여 기능을 수행하는 영역을 메인쿼리라고 부른다.
+
+## 특징
+
+1. 비교 또는 조회 대상의 오른쪽에 놓이며 괄호로 묶어서 사용
+2. 대부분 ORDER BY 사용 불가능
+3. 비교대상과 같은 자료형과 같은 개수로 지정
+4. 메인쿼리의 연산자 종류와 호환 가능
+
+
+## 단일행 서브쿼리
+
+실행결과가 단 하나의 행으로 나오는 서브쿼리.
+
+단일행 연산자 
+`> >= = <= < <> ^= !=`
+
+## 다중행 서브쿼리
+
+실행결과 행이 여러개로 나오는 서브쿼리.
+
+다중행 연산자
+`IN` : 메인쿼리의 데이터가 서브쿼리의 결과 중 하나라도 일치한 데이터가 있으면 true
+
+```SQL
+SELECT * 
+FROM EMP
+WHERE SAL IN (
+            SELECT MAX(SAL)
+            FROM EMP
+            GROUP BY DEPTNO
+            );
+```
+
+`ANY,SOME` : 메인쿼리의 조건식을 만족하는 서브쿼리의 결과가 하나 이상이면 true
+```SQL
+-- IN과 같은 결과
+SELECT *
+FROM EMP
+WHERE SAL = ANY ( -- SOME도 같은 결과
+            SELECT MAX(SAL)
+            FROM EMP
+            GROUP BY DEPTNO
+);
+
+-- < MAX(SAL)과 같은 결과
+SELECT *
+FROM EMP
+WHERE SAL < ANY (
+    SELECT SAL
+    FROM EMP
+    WHERE DEPTNO = 30)
+ORDER BY SAL,EMPNO
+```
+
+`ALL` : 메인쿼리의 조건식을 서브쿼리의 결과가 모두 만족하면 true
+
+```SQL
+SELECT *
+FROM EMP
+WHERE SAL > ALL (
+    SELECT SAL
+    FROM EMP
+    WHERE DEPTNO = 30
+);
+```
+
+`EXISTS` : 서브쿼리의 결과가 존재하면 (즉, 행이 1개 이상일 경우) true
+
+```SQL
+-- 모든 행
+SELECT *
+FROM EMP
+WHERE EXISTS (
+    SELECT DNAME
+    FROM DEPT
+    WHERE DEPTNO = 10
+);
+
+-- 결과값 존재하지 않음
+SELECT *
+FROM EMP
+WHERE EXISTS (
+    SELECT DNAME
+    FROM DEPT
+    WHERE DEPTNO = 50
+);
+
+```
+
+## 다중열 서브쿼리
+
+서브쿼리의 SELECT절에 비교할 데이터(열)를 여러개 지정하는 방식.
+
+```SQL
+SELECT *
+FROM EMP
+WHERE (DEPTNO, SAL) IN (
+    SELECT DEPTNO, MAX(SAL)
+    FROM EMP
+    GROUP BY DEPTNO
+);
+```
+
+## FROM절에 사용하는 서브쿼리, WITH절
+
+```SQL
+-- FROM 절에 들어가는 서브쿼리를 WITH절로 빼서 아래처럼 사용할 수 있다.
+WITH 
+E10 AS (SELECT * FROM EMP WHERE DEPTNO = 10),
+D   AS (SELECT * FROM DEPT)
+SELECT E10.EMPNO, E10.ENAME, E10.DEPTNO, D.DNAME, D.LOC
+FROM E10, D
+WHERE E10.DEPTNO = D.DEPTNO;
+```
+
+## SELECT절에 사용하는 서브쿼리
+
+```SQL
+SELECT EMPNO, ENAME, JOB, SAL,
+    (SELECT GRADE
+    FROM SALGRADE
+    WHERE E.SAL BETWEEN LOSAL AND HISAL) AS SALGRADE,
+    DEPTNO,
+    (SELECT DNAME 
+    FROM DEPT
+    WHERE E.DEPTNO = DEPT.DEPTNO) AS DNAME
+FROM EMP E;
+```
+
+
+
+# 트랜잭션 제어와 세션
+
+## 트랜잭션
+
+트랜잭션은 기능 한 가지를 수행하는 SQL문 덩어리로, 더 이상 분할할 수 없는 최소 수행 단위를 뜻하며 계좌이체와 같이 하나의 작업 또는 밀접하게 연관된 작업을 수행하기 위해 한 개 이상의 데이터 조작 명령어(DML)로 이루어진다. 
+
+### ALL OR NOTHING
+하나의 트랜잭션 내에 있는 여러 명령어를 한 번에 수행하여 작업을 완료하거나 아예 모두 수행하지 않는 상태, 즉 모든 작업을 취소한다.
+
+트랜잭션을 제어하기 위해 사용하는 명령어를 TCL(Transaction Control Language)이라고 한다.
+
+## 트랜잭션의 암시적 처리
+자동 커밋이 되는 상황
+- DDL (CREATE, DROP, ALTER, TRUNCATE, COMMENT)
+- DCL (GRANT, ROLE)
+- COMMIT 또는 ROLLBACK 실행되지않은채 SQL PLUS 정상종료한 경우
+- SQLPLUS의 비정상종료, 시스템 장애 발생시
+
+## 트랜잭션 제어 명령어 - Transaction Control Language (TCL)
+
+### ROLLBACK
+
+ROLLBACK은 `현재 트랜잭션에 포함된` 데이터 조작 관련 명령어(DML)의 수행을 모두 취소한다.
+
+### COMMIT
+
+지금까지 수행한 트랜잭션 명령어를 데이터베이스에 영구히 반영할 때 COMMIT 명령어를 사용한다. COMMIT 명령어 사용을 기점으로 ROLLBACK 명령어가 소용없다.
+
+
+## 세션
+
+오라클 데이터베이스에서 세션은 데이터베이스 접속을 시작으로 여러 데이터베이스에서 관련 작업을 수행한 후 접속을 종료하기까지 전체 기간을 의미한다.sqlplus와 sqldeveloper로 각각 scott 계정으로 접속하면 세션이 두개다.
+
+COMMIT을 해줘야 다른 세션에서도 해당 테이블이 변경된 것을 확인할 수 있다.
+
+
+
+## LOCK
+
