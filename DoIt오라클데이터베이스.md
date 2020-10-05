@@ -942,3 +942,71 @@ COMMIT을 해줘야 다른 세션에서도 해당 테이블이 변경된 것을 
 
 ## LOCK
 
+한 세션이 조작중인 데이터는 트랜잭션이 완료되기 전까지 다른 세션에서 조작할 수 없다. 이렇게 데이터가 잠기는 현상을 LOCK이라고 한다. 1번 세션에서 데이터 조작 후 COMMIT을 하지 않은 상태에서 2번 세션이 해당 데이터를 조작하려고하면 세션이 멈추고, COMMIT(트랜잭션 완료)을 하면 그 때 2번 세션의 SQL문이 진행된다.
+
+행 레벨 록(row level rock)과 테이블 레벨 록(table level rock)이 있다.
+
+
+# 사용자, 권한, 롤 관리
+
+## 사용자
+관리자 권한을 가진 계정으로 접속해서 아래 코드를 진행한다.
+
+```sql
+-- 사용자 생성
+CREATE USER ORCLSTUDY
+IDENTIFIED BY ORACLE
+
+-- 권한 부여
+GRANT CREATE SESSION TO ORCLSTUDY;
+
+-- 사용자와 객체 모두 삭제
+DROP USER ORCLSTUDY CASCADE; -- CASCADE 빼면 사용자만 삭제
+```
+
+## 권한
+
+### 시스템 권한
+
+사용자 생성과 정보 수정 및 삭제, 데이터베이스 접근, 오라클 데이터베이스의 여러 자원과 객체 생성 및 관리 등의 권한 포함
+```SQL
+GRANT [시스템권한] 
+TO [사용자이름/ROLE이름/PUBLIC]
+[WITH ADMIN OPTION] -- 사용자이름이 시스템권한을 부여할 수 있는 권한 갖는다.
+
+-- 취소
+REVOKE [시스템권한] FROM [사용자이름/ROLE이름/PUBLIC]
+
+```
+
+
+### 객체 권한
+
+테이블 인덱스 뷰 시퀀스 등과 관련된 권한
+
+```sql
+GRANT [객체권한/ALL PRIVILEGES]
+ON [스키마.객체이름]
+TO [사용자이름/ROLE이름/PUBLIC]
+
+-- 취소
+REVOKE [객체권한/ALL PRIVILEGES]
+ON [스키마.객체이름]
+FROM [사용자이름/ROLE이름/PUBLIC]
+[CASCADE CONSTRAINTS/FORCE] -- OPTIONAL
+```
+
+## 롤
+롤은 여러 종류의 권한을 묶어놓은 그룹이다.
+- CONNECT : 데이터베이스에 접속하는데 필요한 CREATE SESSION 권한
+- RESOURCE : 기본 시스템 권한 묶음
+
+### 사용자 롤
+사용법은 아래와 같다.
+1. CREATE ROLE 문으로 롤 생성
+2. GRANT 명령어로 ROLE에 권한 포함
+3. GRANT 명령어로 사용자에게 롤 부여
+4. REVOKE로 롤 취소
+
+
+# PL/SQL
