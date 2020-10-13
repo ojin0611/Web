@@ -409,7 +409,7 @@ JOIN TABLE3 ON (조건식)
 ```
 
 ---
-> 10 : DML (INSERT, UPDATE,DELETE)
+> 10 : DML (INSERT, UPDATE,DELETE, SELECT)
 > 
 > 11 : TCL (COMMIT, ROLLBACK)
 > 
@@ -423,7 +423,7 @@ JOIN TABLE3 ON (조건식)
 
 # 데이터 조작어 : 추가,수정,삭제 - Data Manipulation Language (DML)
 
-DML이라고도 부르고 INSERT, UPDATE, DELETE문이 있다.
+DML이라고도 부르고 INSERT, UPDATE, DELETE, SELECT문이 있다.
 
 ## INSERT
 
@@ -1010,3 +1010,451 @@ FROM [사용자이름/ROLE이름/PUBLIC]
 
 
 # PL/SQL
+
+책은 띄엄띄엄. 교안 위주로 수업.  
+[교안링크](https://github.com/swacademy/Oracle/blob/master/15.%20Plsql.pdf)
+
+PL/SQL은 SQL만으로는 구현이 어렵거나 구현 불가능한 작업을 수행하기 위해 오라클에서 제공하는 프로그래밍 언어다.
+
+PL/SQL 프로그램의 명령어 기본 단위를 블록이라 하고, 기본 형식은 다음과 같다.
+
+```SQL
+DECLARE
+-- [실행에 필요한 요소 선언]
+BEGIN
+-- [작업을 위해 실제 실행하는 명령어]
+EXCEPTION
+-- [PL/SQL 수행도중 발생하는 오류처리]
+END;
+
+/*
+-- 여러 줄 주석은
+DBMS_OUTPUT.PUT_LINE('HELLO, PL/SQL'); -- 출력방법
+*/
+```
+
+SQLPLUS에서 PL/SQL 결과를 화면에 출력하기 위해서는 코드 앞에 `SET SERVEROUTPUT ON`을 입력해준다. 또한 마지막에 슬래시(/)를 작성한다.
+
+
+## 변수와 상수
+
+변수의 기본형식은 다음과 같다.
+
+`변수이름 자료형 := 값 또는 값이 도출되는 여러 표현식;`  
+
+`V_EMPNO NUMBER(4) := 7788;`
+
+상수는 아래와 같이 선언한다.
+
+`변수이름 CONSTANT 자료형 := 값 또는 값이 도출되는 여러 표현식;`
+
+변수의 기본값은 다음과 같이 지정한다.
+
+`변수이름 자료형 DEFAULT 값 또는 값이 도출되는 여러 표현식;`
+
+
+
+### 참조형
+오라클 데이터베이스에 존재하는 특정 테이블 열의 자료형이나 하나의 행 구조를 참조하는 자료형이다. 열을 참조할 때 %TYPE, 행을 참조할 때 %ROWTYPE을 사용한다.
+
+`변수이름 테이블이름.열이름%TYPE;`
+
+`변수이름 테이블 이름%ROWTYPE;`
+```SQL
+DECLARE 
+V_DEPT DEPT.DEPTNO%TYPE := 50;
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(V_DEPTNO);
+END;
+
+
+DECLARE
+    V_DEPT_ROW DEPT%ROWTYPE;
+
+BEGIN
+    SELECT DEPTNO, DNAME, LOC INTO V_DEPT_ROW
+    FROM DEPT
+    WHERE DEPT=40;
+    DBMS_OUTPUT.PUT_LINE(V_DEPT_ROW.DEPTNO);
+END;
+/
+```
+
+## 조건 제어문
+
+### IF-ELSE
+
+```SQL
+IF 조건식 THEN
+-- 수행할 명령어;
+ELSIF 조건식
+-- 수행할 명령어;
+ELSE
+-- 수행할 명령어;
+END IF;
+```
+
+### CASE
+
+```SQL
+CASE 비교기준
+    WHEN 값1 THEN
+    -- 수행할 명령어;
+    WHEN 값2 THEN
+    -- 수행할 명령어;
+    ELSE
+    --수행할 명령어;
+END CASE
+
+-- 비교기준을 빼고, 값에 조건식을 넣어서 사용할 수도 있다.
+```
+
+## 반복 제어문
+
+```SQL
+LOOP
+-- 반복수행 작업
+END LOOP;
+
+WHILE 조건식 LOOP
+-- 반복수행작업;
+END LOOP;
+
+FOR i IN (REVERSE) 1..10 LOOP
+-- 반복수행작업;
+END LOOP;
+
+-- CONTINUE, CONTINUE WHEN 조건문
+```
+
+
+# 레코드와 컬렉션
+
+## 레코드
+
+레코드는 자료형이 각기 다른 데이터를 하나의 변수에 저장하는데 사용한다.
+```SQL
+DECLARE
+    TYPE REC_DEPT IS RECORD(
+        deptno NUMBER(2) NOT NULL := 99,
+        dname DEPT.DNAME%TYPE,
+        loc DEPT.LOC%TYPE 
+    );
+    dept_rec REC_DEPT; -- dept_rec = REC_DEPT라는 레코드를 저장한 변수이름
+
+BEGIN
+    dept_rec.deptno := 100;
+    dept_rec.dname := 'DATABASE';
+    dept_rec.loc := 'SEOUL';
+
+    INSERT INTO DEPT_RECORD
+    VALUES dept_rec; -- 추가
+
+    UPDATE DEPT_RECORD
+    SET ROW = dept_rec
+    WHERE DEPTNO = 40; -- DEPTNO = 40번인 데이터를 dept_rec로 수정
+END;
+/
+```
+
+다른 레코드의 자료형을 그대로 가져오고싶을때는 아래 방법을 사용한다
+
+`emp_rec.dinfo.deptno`
+
+dinfo는 emp_rec의 자료형을 가져오는 변수다.
+
+
+
+## 컬렉션
+
+컬렉션은 특정 자료형의 데이터를 여러 개 저장하는 복합자료형이다. PL/SQL에서 사용할 수 있는 컬렉션은 3가지다.
+- 연관 배열
+- 중첩 테이블
+- VARRAY
+
+### 연관 배열
+KEY, VALUE로 구성되는 컬렉션으로, 중복되지 않은 유일한 키를 통해 값을 저장하고 불러오는 방식을 사용한다.
+
+```SQL
+/*
+TYPE 연관배열이름 IS TABLE OF 자료형 [NOT NULL]
+INDEX BY 인덱스형;
+*/
+
+DECLARE
+   TYPE ITAB_EX IS TABLE OF VARCHAR2(20)
+      INDEX BY PLS_INTEGER;
+
+   text_arr ITAB_EX;
+
+BEGIN
+   text_arr(1) := '1st data';
+   text_arr(2) := '2nd data';
+   text_arr(3) := '3rd data';
+   text_arr(4) := '4th data';
+
+   DBMS_OUTPUT.PUT_LINE('text_arr(1) : ' || text_arr(1));
+   DBMS_OUTPUT.PUT_LINE('text_arr(2) : ' || text_arr(2));
+   DBMS_OUTPUT.PUT_LINE('text_arr(3) : ' || text_arr(3));
+   DBMS_OUTPUT.PUT_LINE('text_arr(4) : ' || text_arr(4));
+END;
+/
+```
+
+
+
+# 커서
+
+커서는 SQL문을 실행했을 때 해당 SQL문을 처리하는 정보를 저장한 메모리 공간이다. (메모리의 포인터)
+
+커서를 이용하면 SQL문의 결과 값을 사용할 수 있다. 예를 들어 SELECT문의 결과값이 여러 행으로 나왔을 때, 각 행별로 특정 작업을 수행하도록 기능을 구현하는 것이 가능하다.
+
+## SELECT INTO
+
+```SQL
+SELECT 열1, 열2, 열3
+INTO 변수1, 변수2, 변수3
+FROM ...
+```
+
+## 명시적 커서
+
+```SQL
+DECLARE
+    CURSUR 커서이름 IS SQL문    -- 커서 선언
+BEGIN
+    OPEN 커서이름;              -- 커서 열기
+    FETCH 커서이름 INTO 변수    -- 커서로부터 읽어온 데이터 사용
+    CLOSE 커서이름;             -- 커서 닫기
+END;
+```
+
+## CURSOR - LOOP
+
+```SQL
+DECLARE
+   -- 커서 데이터를 입력할 변수 선언
+   V_DEPT_ROW DEPT%ROWTYPE;
+
+   -- 명시적 커서 선언(Declaration)
+   CURSOR c1 IS
+      SELECT DEPTNO, DNAME, LOC
+        FROM DEPT;
+
+BEGIN
+   -- 커서 열기(Open)
+   OPEN c1;
+
+   LOOP
+      -- 커서로부터 읽어온 데이터 사용(Fetch)
+      FETCH c1 INTO V_DEPT_ROW;
+
+      -- 커서의 모든 행을 읽어오기 위해 %NOTFOUND 속성 지정
+      EXIT WHEN c1%NOTFOUND;
+
+      DBMS_OUTPUT.PUT_LINE('DEPTNO : ' || V_DEPT_ROW.DEPTNO
+                        || ', DNAME : ' || V_DEPT_ROW.DNAME
+                        || ', LOC : ' || V_DEPT_ROW.LOC);
+   END LOOP;
+
+   -- 커서 닫기(Close)
+   CLOSE c1;
+
+END;
+/
+```
+
+## CURSUR - FOOR LOOP
+```SQL
+FOR 루프인덱스 IN 커서이름 LOOP
+    결과행별로 반복 수행할 작업;
+END LOOP;
+
+DECLARE
+   -- 명시적 커서 선언(Declaration)
+   CURSOR c1 IS
+   SELECT DEPTNO, DNAME, LOC
+     FROM DEPT;
+
+BEGIN
+   -- 커서 FOR LOOP 시작 (자동 Open, Fetch, Close)
+   FOR c1_rec IN c1 LOOP
+      DBMS_OUTPUT.PUT_LINE('DEPTNO : ' || c1_rec.DEPTNO
+                      || ', DNAME : ' || c1_rec.DNAME
+                      || ', LOC : ' || c1_rec.LOC);
+   END LOOP;
+
+END;
+/
+
+```
+
+
+## 커서에 사용할 파라미터 입력받기
+
+&INPUT_DEPTNO를 사용하면 실행할 때 사용자에게 INPUT_DEPTNO에 들어갈 값의 입력을 요구할 수 있다.
+
+```sql
+DECLARE
+   -- 사용자가 입력한 부서 번호를 저장하는 변수선언
+   v_deptno DEPT.DEPTNO%TYPE;
+   -- 명시적 커서 선언(Declaration)
+   CURSOR c1 (p_deptno DEPT.DEPTNO%TYPE) IS
+      SELECT DEPTNO, DNAME, LOC
+        FROM DEPT
+       WHERE DEPTNO = p_deptno;
+BEGIN
+   -- INPUT_DEPTNO에 부서 번호 입력받고 v_deptno에 대입
+   v_deptno := &INPUT_DEPTNO;
+   -- 커서 FOR LOOP 시작. c1 커서에 v_deptno를 대입
+   FOR c1_rec IN c1(v_deptno) LOOP
+      DBMS_OUTPUT.PUT_LINE('DEPTNO : ' || c1_rec.DEPTNO
+                      || ', DNAME : ' || c1_rec.DNAME
+                      || ', LOC : ' || c1_rec.LOC);
+   END LOOP;
+END;
+/
+```
+
+## 예외처리
+
+```SQL
+EXCEPTION
+WHEN 예외이름1 THEN
+명령어;
+
+WHEN 예외이름2 THEN
+명령어;
+
+WHEN OTHERS THEN
+명령어;
+```
+
+
+# 저장 서브 프로그램
+여러번 사용할 목적으로 이름을 지정하여 오라클에 저장해두는 PL/SQL 프로그램을 저장 서브프로그램(stored subprogram)이라고 한다.
+
+저장서브프로그램은 이름지정이 가능하고, 저장할 때 한번 컴파일한다. 공유가 가능하고, 다른 응용프로그램에서 호출이 가능하다.
+
+서브프로그램의 종류는 다음과 같이 4가지가 있다.
+
+- 저장 프로시저 : 일반적으로 특정 처리 작업 수행을 위한 서브프로그램. SQL문에서 사용 불가능
+- 저장함수 : 특정 연산을 거친 결과값을 반환하는 서브프로그램, SQL문에서 사용가능
+- 패키지 : 저장 서브프로그램을 그룹화하는데 사용
+- 트리거 : 특정상황이 발생할때 자동으로 연달아 수행할 기능을 구현하는데 사용
+
+## 프로시저
+
+### 파라미터 없는 프로시저
+```sql
+-- 생성
+CREATE OR REPLACE PROCEDURE pro_noparam
+IS
+   V_EMPNO NUMBER(4) := 7788;
+   V_ENAME VARCHAR2(10);
+BEGIN
+   V_ENAME := 'SCOTT';
+   DBMS_OUTPUT.PUT_LINE('V_EMPNO : ' || V_EMPNO);
+   DBMS_OUTPUT.PUT_LINE('V_ENAME : ' || V_ENAME);
+END;
+
+-- 실행1
+SET SERVEROUTPUT ON;
+EXECUTE pro_noparam;
+
+-- 실행2
+BEGIN
+    pro_noparam;
+END;
+
+```
+
+### 파라미터 있는 프로시저
+```sql
+-- IN 모드 생성
+CREATE OR REPLACE PROCEDURE pro_param_in
+(
+   param1 IN NUMBER,
+   param2 NUMBER,
+   param3 NUMBER := 3,
+   param4 NUMBER DEFAULT 4
+)
+IS
+
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('param1 : ' || param1);
+   DBMS_OUTPUT.PUT_LINE('param2 : ' || param2);
+   DBMS_OUTPUT.PUT_LINE('param3 : ' || param3);
+   DBMS_OUTPUT.PUT_LINE('param4 : ' || param4);
+END;
+
+-- 실행
+EXECUTE pro_param_in(1,2);
+
+-- OUT 모드 생성
+CREATE OR REPLACE PROCEDURE pro_param_out
+(
+   in_empno IN EMP.EMPNO%TYPE,
+   out_ename OUT EMP.ENAME%TYPE,
+   out_sal OUT EMP.SAL%TYPE
+)
+IS
+
+BEGIN
+   SELECT ENAME, SAL INTO out_ename, out_sal
+     FROM EMP
+    WHERE EMPNO = in_empno;
+END pro_param_out;
+
+-- 실행
+DECLARE
+   v_ename EMP.ENAME%TYPE;
+   v_sal EMP.SAL%TYPE;
+BEGIN
+   pro_param_out(7788, v_ename, v_sal);
+   DBMS_OUTPUT.PUT_LINE('ENAME : ' || v_ename);
+   DBMS_OUTPUT.PUT_LINE('SAL : ' || v_sal);
+END;
+/
+```
+
+
+## 함수
+
+```SQL
+CREATE OR REPLACE FUNCTION func_aftertax(
+    sal IN NUMBER
+)
+RETURN NUMBER
+IS
+    tax NUMBER := 0.05;
+BEGIN
+    RETURN (ROUND(sal - (sal*tax)));
+END func_aftertax;
+
+SELECT func_aftertax(3000)
+FROM DUAL;
+```
+
+## 패키지
+
+연관성이 높은 프로시저, 함수 등 여러 개의 PL/SQL 서브프로그램을 하나의 논리그룹으로 묶어 통합관리하는데 사용하는 객체를 패키지라고 한다.
+
+## 트리거
+
+데이터베이스 안의 특정 상황이나 동작, 즉 이벤트가 발생할 경우에 자동으로 실행되는 기능을 정의하는 PL/SQL 서브프로그램이다.
+
+
+## SQL로 입력 받기
+```sql
+ACCEPT p_empno PROMPT 'Employee Number : '
+
+DECLARE
+v_empno NUMBER(4) := &p_empno;
+
+BEGIN
+...
+END
+
+```
