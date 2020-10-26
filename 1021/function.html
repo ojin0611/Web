@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>function 연습</title>
+</head>
+<body>
+    <script>
+        function calcSum(start, end){
+            var sum = 0;
+            for(var i = start ; i <= end ; i++){
+                sum += i;
+            }
+            return sum;
+            //document.write(start + '부터 ' + end + '까지의 합은 ' + sum + '입니다.<br />');
+        }
+        document.write(calcSum(1, 100) + '<br />');  //Call By Value
+        document.write(calcSum(50, 100) + '<br />');
+        document.write(calcSum(1, 10) + '<br />');
+        document.write(calcSum(20, 30) + '<br />');
+    </script>
+</body>
+</html>

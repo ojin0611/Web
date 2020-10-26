@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box model</title>
+    <style>
+        *{
+            margin-left:10px;
+            margin-top:20px;
+        }
+
+        /*
+        padding
+        값이 1개 : 상하좌우 모두
+        값이 2개 : 상하, 좌우
+        값이 3개 : 상, 좌우, 하
+        값이 4개 : 상, 우, 하, 좌
+
+        width, heiget는 글 내용 한정
+
+        
+        */     
+
+        div{
+            padding:10px 100px 40px;
+            width:500px ; height:300px;
+            border: 5px solid red;
+            border-radius: 20px 50px;
+            /* border-bottom: 4px double blue;
+            border-style:solid dashed dotted double;
+            border-width:5px;
+            border-color:red blue green orange;         */
+        }
+    </style>
+</head>
+<body>
+    <h1>Box model</h1>
+    <div>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt 
+        unde cum, quae iure laudantium debitis magnam. A reprehenderit harum cumque eligendi. 
+        Dolores necessitatibus cum in porro itaque enim, at sit!
+    </div>
+</body>
+</html>

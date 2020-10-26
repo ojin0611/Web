@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Array Object 연습</title>
+    <script>
+      var array = [50000, 10000, 5000, 1000, 500, 100, 50, 10, 5, 1];
+      function myclear() {
+        document.querySelector("#txtMoney").value = "";
+      }
+      function showResult() {
+        var money = document.querySelector("#txtMoney").value;
+        var str = "<ol>";
+        for (var i = 0; i < array.length; i++) {
+          str +=
+            "<li>" +
+            array[i] +
+            "원권 : " +
+            Math.floor(money / array[i]) +
+            "</li>";
+          money %= array[i];
+        }
+        str += "</ol>";
+        document.querySelector("#result").innerHTML = str;
+      }
+    </script>
+  </head>
+  <body>
+    <div>
+      Money : <input type="number" id="txtMoney" />&nbsp;&nbsp;
+      <input
+        type="button"
+        value="Show Result"
+        onclick="showResult()"
+      />&nbsp;&nbsp;
+      <input type="button" value="Clear" onclick="myclear()" />
+    </div>
+    <div id="result"></div>
+  </body>
+</html>

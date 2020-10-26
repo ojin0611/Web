@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기타 선택자 연습</title>
+
+    <style>
+        input[type='email']:invalid{
+            background-color: yellow;   color:red;
+        }
+
+        input[type='email']:valid{
+            background-color: white;    color:black;
+        }
+
+        input[type='number']:out-of-range{
+            background-color: yellow;    color: red;
+        }
+    </style>
+
+</head>
+<body>
+    <form>
+        <p>Email : <input type="email" name="" id=""></p>
+        <p>Age :<input type="number" min='20' max='60'></p>
+        <p><input type="submit" value="전송"></p>
+    </form>
+</body>
+</html>

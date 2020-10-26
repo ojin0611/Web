@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원정보페이지</title>
+    <script>
+        window.onload = function(){
+            document.querySelector('#btnInput').addEventListener('click', myinput, false);
+            document.querySelector('#btnUpdate').addEventListener('click', myupdate, false);
+        }
+        function myinput(evt){
+            var width = 600;  var height = 400;  
+            //var left = screen.availWidth / 2 - width / 2;
+           // var top = screen.availHeight / 2 - height / 2;
+            var left = evt.screenX;
+            var top = evt.screenY;
+            window.open('sub.html', '_blank', 
+                 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
+        }
+        function myupdate(evt){
+            var width = 600;  var height = 400; 
+            var left = evt.screenX;
+            var top = evt.screenY;
+            var param = 'city=' + document.querySelector('#city').innerHTML;
+            window.open('sub1.html?' + param, '_blank', 
+                 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
+        }
+    </script>
+</head>
+<body>
+    <h1>회원정보</h1>
+    <ul>
+        <li>이름 : <span id='username'></span> </li>
+        <li>나이 : <span name='userage'></span> </li>
+        <li>가입날짜 : <input type="text" id="regdate" readonly></li>
+        <li>성별 :  <input type="text" id="gender" disabled></li>
+        <li>거주지 : <div style='display:inline' id='city'></div></li>
+        <li><button id='btnInput'>입력하기</button>&nbsp;&nbsp;
+            <button id='btnUpdate'>수정하기</button></li>
+    </ul>
+</body>
+</html>

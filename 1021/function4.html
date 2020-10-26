@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>중첩 함수 연습</title>
+</head>
+<body>
+    <script>
+        function outer(who){
+            //return 24;
+            //return 'hello';
+            //return true;
+            //return ['사과', '배', '딸기'];
+            //return {name:'Sonata', price : 30000000};
+            function inner(greeting){
+                document.write(who + '님! ' + greeting + '<br />');
+            }
+            return inner;
+        }
+        outer('안녕하세요.');
+        var myvariable = outer('jimin');
+        myvariable('Good Morning');
+        var afternoon = myvariable;
+        afternoon('Good Afternoon');
+        var dinner = outer('younghee');
+        dinner('Good Night');
+        /*
+            중첩함수의 특징
+            1. 안쪽 함수(inner())는 바깥 함수(outer())의 바깥쪽에서 접근 불가
+            2. 바깥함수(outer())는 안쪽 함수의 변수 접근 불가
+            3. 안쪽함수(inner())는 바깥함수의 변수에 접근 가능
+            4. 안쪽함수는 바깥함수가 끝나더라도 계속 메모리에 남아있다.
+        */
+        //document.write(myvariable[1]);
+        //document.write(myvariable.price);
+        //document.write(typeof(myvariable));
+    </script>
+</body>
+</html>

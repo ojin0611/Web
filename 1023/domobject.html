@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM object 연습</title>
+    <script>
+        var array = ['red', 'orange','yellow', 'lime', 'blue', 'navy', 'purple'];
+        window.onload = function(){
+            buttons = document.getElementsByTagName('button');
+            for(var i = 0 ; i < buttons.length; i++){
+                buttons[i].style.backgroundColor = array[i];
+                buttons[i].style.fontSize = "2em";
+                buttons[i].innerHTML = array[i].toUpperCase();
+                buttons[i].addEventListener('click', myclick, false);
+            }
+        }
+        function myclick(){
+            document.body.style.backgroundColor = this.innerHTML.toLowerCase();
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <button></button>&nbsp;&nbsp;
+        <button></button>&nbsp;&nbsp;
+        <button></button>&nbsp;&nbsp;
+        <button></button>&nbsp;&nbsp;
+        <button></button>&nbsp;&nbsp;
+        <button></button>&nbsp;&nbsp;
+        <button></button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>window object 연습</title>
+    <script>
+        var mywin = null;
+        function myopen(){
+            mywin = window.open('https://www.naver.com', '_blank', 'left=0, top=0, width=200, height=200');
+            mymove();
+        }
+        function mymove(){
+            mywin.resizeBy(1, 1);
+            setTimeout(mymove(), 1000);
+        }
+    </script>
+</head>
+<body>
+    <button onclick="myopen()">Click Me!!!</button>
+</body>
+</html>

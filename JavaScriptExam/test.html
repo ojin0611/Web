@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>계산 퀴즈</title>
+    <script>
+        window.onload = function(){
+            var array = ['red', 'orange','yellow', 'lime', 'blue', 'navy', 'purple'];
+            answerBoxes = document.getElementsByTagName('input');
+            for(var i = 0 ; i < answerBoxes.length; i++){
+                answerBoxes[i].style.float = "right";
+                answerBoxes[i].style.width = "50px";
+                // answerBoxes[i].addEventListener('click', myclick, false);
+            }
+            // document.querySelector('#complete').addEventListener('click', getScore, false);
+            document.getElementsByTagName('input')[0].style.width = "100px";
+        }
+
+
+        function getScore(evt){
+        }
+    </script>
+
+  </head>
+  <body>
+    <div>이름과 계산의 답을 입력한 후 완료 버튼을 눌러주세요.</div>
+    <div style="float : right">이름: &nbsp;<input type="text" id="name" style="width:100px;"/></div>
+    <br>
+    <ol>
+      <li>5 + 6 = <input type="text" id="ans1"/></li>
+      <li>8 - 3 = <input type="text" id="ans2" /></li>
+      <li>7 x 6 = <input type="text" id="ans3" /></li>
+      <li>15 / 3 = <input type="text" id="ans4"/></li>
+      <li>8 + 6 - 3 x 2 / 2 = <input type="text" id="ans5"/></li>
+    </ol>
+
+    <button id="complete">완료</button>&nbsp;&nbsp;
+
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>String Object 연습</title>
+  </head>
+  <body>
+    <script>
+      var start = 65;
+      for (var i = 0; i < 26; i++) {
+        document.write(String.fromCharCode(65 + i));
+      }
+      var str = '(135-050) 서울시 강남구 역삼동 한독빌딩 8층';
+      var zipcode = str.substring(1, 8);  //start index부터 end index 전까지 추출
+      var zipcode = str.substr(1, 7);   //start index로부터 몇 개를 추출
+      var zipcode = str.slice(1, 8);
+      document.write("<br />" + '우편번호 = ' + zipcode + "<br />");
+      document.write("<a href='https://www.naver.com'>네이버</a><br />");
+      document.write("daum".link("https://www.daum.net"));
+    </script>
+  </body>
+</html>

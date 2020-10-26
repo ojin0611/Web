@@ -110,3 +110,44 @@ HTML 특수문자 : https://dev.w3.org/html5/html-author/charref
 https://sensechef.com/957
 
 
+# JavaScript
+
+[지역변수 vs 전역변수](https://www.codingfactory.net/10401)
+
+함수 내부에서 var를 사용하지 않고 변수의 값을 정하면 전역변수의 값을 변경합니다.
+
+
+[변수 Hoisting](https://www.daleseo.com/js-var-issues/)
+
+Hoisting이란 `var` 키워드를 사용하여 변수를 선언 시, 해당 변수가 속한 범위(scope) 최상단으로 올려버리는 현상이다. 여기서 범위는 block 레벨이 아닌 function 레벨이다.
+
+아래의 코드는 변수 n이 선언된 적이 없어서 에러.
+
+```javascript
+console.log(n); // ReferenceError
+```
+
+위 코드는 변수 n의 선언이 Hoisting됨.
+
+```javascript
+console.log(n); // undefined
+var n = 100;
+console.log(n); // 100
+
+/* 위 코드는 아래처럼 Hoisting된다.
+var n;
+console.log(n);
+n = 100;
+console.log(n);
+*/
+```
+
+#### toLocaleString()
+
+toLocaleString() 메서드는 배열의 요소를 나타내는 문자열을 반환합니다. 요소는 toLocaleString 메서드를 사용하여 문자열로 변환되고 이 문자열은 locale 고유 문자열(가령 쉼표 “,”)에 의해 분리됩니다.
+
+#### EventTarget.addEventListener()
+
+EventTarget의 addEventListener() 메서드는 지정한 이벤트가 대상에 전달될 때마다 호출할 함수를 설정합니다. 일반적인 대상은 Element, Document, Window지만, XMLHttpRequest와 같이 이벤트를 지원하는 모든 객체를 대상으로 지정할 수 있습니다.
+
+addEventListener()는 EventTarget의 주어진 이벤트 유형에, EventListener를 구현한 함수 또는 객체를 이벤트 처리기 목록에 추가해 작동합니다.

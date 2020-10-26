@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>literal demo</title>
+    <script>
+      function check() {
+        var age = 0;
+        // if(document.myform.username.value){
+        if (age) {
+          alert("값이 있습니다.");
+        } else {
+          alert("값이 없습니다.");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <form action="login.jsp" nam="myform">
+      Name : <input type="text" name="username" /><br />
+      <button type="button" onclick="check()">제출</button>
+    </form>
+  </body>
+</html>

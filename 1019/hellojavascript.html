@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello JavaScript</title>
+    <script>
+        function showDate(){
+            var now = new Date();
+            var year = now.getFullYear();
+            var month = now.getMonth() + 1;
+            var day = now.getDate();
+            var str = '오늘은 ' + year + '년 ' + month + '월 ' + day + '일입니다.';
+            var divs = document.getElementsByTagName('div'); // 배열
+            divs[0].innerHTML = "<span style='color:red'>" + str + "</span>";
+        }
+    </script>
+</head>
+<body>
+    <button onclick="showDate()">Click me!</button>
+    <div></div>
+</body>
+</html>

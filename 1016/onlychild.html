@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>only-child, only-of-type 선택자 연습</title>
+    <style>
+      /* p만이 유일한 자식이어야하고, 
+        p가 아닌 다른 형제가 없어야 된다.*/
+       div > h1:only-child{
+            background-color: green;
+        } 
+
+      /* p가 유일, p가 아닌 다른 형제가 있어도됨*/
+      div > p:only-of-type {
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Hello, World</h1>
+      <!-- <p>JavaScript</p> -->
+    </div>
+
+    <div>
+      <p>HTML5</p>
+      <a>CSS3</a>
+    </div>
+  </body>
+</html>

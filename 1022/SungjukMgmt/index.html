@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>성적관리프로그램</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="script/student.js"></script>
+    <script src="script/input.js"></script>
+    <script src="script/calc.js"></script>
+    <script src="script/output.js"></script>
+    <script src="script/sort.js"></script>
+    <script>
+        var array = [];
+        window.addEventListener('load', setup, false);
+        function setup(){
+            document.myform.btnCalc.disabled = true;
+            document.myform.btnOutput.disabled = true;
+            document.myform.btnSort.disabled = true;
+        }
+    </script>
+</head>
+<body>
+    <h1>쌍용 고등학교 성적관리 프로그램</h1>
+    <form name='myform'>
+        <ul>
+            <li>학번 : <input type="text" name="hakbun"></li>
+            <li>이름 : <input type="text" name="name"></li>
+            <li>국어 : <input type="number" name="kor"></li>
+            <li>영어 : <input type="number" name="eng"></li>
+            <li>수학 : <input type="number" name="mat"></li>
+            <li><input type="button" value="추가하기" name='btnInput' onclick="input(this.form)">&nbsp;&nbsp;
+                <input type="button" value="계산하기" name='btnCalc' onclick="calc()">&nbsp;&nbsp;
+                <input type="button" value="출력하기" name='btnOutput' onclick="output(this.form)">&nbsp;&nbsp;
+                <input type="button" value="정렬하기" name='btnSort' onclick="sort()">
+            </li>
+        </ul>
+    </form>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>학번</th>
+                <th>이름</th>
+                <th>국어</th>
+                <th>영어</th>
+                <th>수학</th>
+                <th>총점</th>
+                <th>평균</th>
+                <th>평점</th>
+            </tr>
+        </thead>
+        <tbody id='result'></tbody>
+        <tfoot>
+            <tr>
+                <th colspan='7' id='countth'>총 학생수</th>
+                <td><span id='count'>0</span>명</td>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>for 연습</title>
+    <style>
+      caption {
+        color: blue;
+        font-size: 3em;
+        font-weight: 900;
+      }
+
+      th,
+      td {
+        border: 1px solid black;
+        height: 50px;
+        vertical-align: middle;
+      }
+
+      th {
+        background-color: navy;
+        color: white;
+        width: 100px;
+      }
+
+      tr > td:first-of-type {
+        color: red;
+        font-size: 1.5em;
+        font-weight: bold;
+      }
+
+      td {
+        text-align: center;
+      }
+    </style>
+
+    <script>
+      function getLastDay(year, month) {
+        var lastday = null;
+        month = parseInt(month); // 글자를 숫자로 변환
+        switch (month) {
+          case 1:
+          case 3:
+          case 5:
+          case 7:
+          case 8:
+          case 10:
+          case 12:
+            lastday = 31;
+            break;
+          case 4:
+          case 6:
+          case 9:
+          case 11:
+            lastday = 30;
+            break;
+          case 2:
+            if (year % 400 == 0 || (year % 4 == 0 && year != 100)) lastday = 29;
+            else lastday = 28;
+        }
+        return lastday;
+      }
+
+      function showCalendar() {
+        var selYear = document.getElementById("year"); // 년도 셀렉터
+        var selMonth = document.getElementById("month"); // 월 셀렉터
+        var idx = selYear.selectedIndex;
+        var year = selYear.options[idx].value; // 유저가 선택한 년도
+        idx = selMonth.selectedIndex;
+        var month = selMonth.options[idx].value; // 유저가 선택한 월
+        // alert('year = ' + year + ',  month = ' + month);
+        var cal = new Date(year, month - 1, 1);
+        // alert(cal.getDay()); //0: 일요일, 1:월요일
+        var space = cal.getDay(); // 2020년 10월 1일은 목요일이기 때문에 4요일이다.
+        var lastday = getLastDay(year, month);
+        display(space, lastday, year, month);
+      }
+
+      function display(space, lastday, year, month) {
+        var str = "";
+        var count = 0;
+        str +=
+          "<table style='width:700px;margin-left:auto;margin-right:auto;border:1px solid black'>";
+        str += "<caption>" + year + "년" + month + "월</caption>";
+        str += "<thead>";
+        str += "<tr>";
+        str += "<th><span style='color:red; '>日</span></th>";
+        str += "<th>月</th>";
+        str += "<th>火</th>";
+        str += "<th>水</th>";
+        str += "<th>木</th>";
+        str += "<th>金</th>";
+        str += "<th>土</th>";
+        str += "</tr>";
+        str += "</thead>";
+        str += "<tbody>";
+        str += "<tr>";
+
+        for (var i = 0; i < space; i++) {
+          // 빈칸 출력하기
+          str += "<td>&nbsp;</td>";
+          count++;
+        }
+
+        // 매일 출력하기
+        for (i = 1; i <= lastday; i++) {
+          str += "<td>" + i + "</td>";
+          count++;
+          if (count % 7 == 0) {
+            str += "</tr>";
+            str += "<tr>";
+            count = 0;
+          }
+        }
+
+        // 마지막 줄 빈칸 처리하기
+        if (count != 0) {
+          for (i = 0; i < 7 - count; i++) {
+            str += "<td>&nbsp;&nbsp;&nbsp;</td>";
+          }
+        }
+        str += "</tr>";
+        str += "</tbody>";
+        str += "</table>";
+        document.getElementById("result").innerHTML = str;
+      }
+    </script>
+  </head>
+  <body>
+    <div style="text-align: center">
+      Year :
+      <select id="year">
+        <option value="">--년도 선택--</option>
+        <script>
+          for (var i = 1990; i <= 2050; i++) {
+            document.write("<option value = '" + i + "'>" + i + "</option>");
+          }
+        </script>
+      </select>
+      Month :
+      <select id="month">
+        <option value="">--월 선택</option>
+        <script>
+          for (var i = 1; i <= 12; i++) {
+            document.write("<option value='" + i + "'>" + i + "</option>");
+          }
+        </script>
+      </select>
+      <button type="button" onclick="showCalendar()">달력보이기</button>
+    </div>
+
+    <hr />
+    <div id="result" style="text-align: center"></div>
+  </body>
+</html>

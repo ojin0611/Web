@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Level 2 연습</title>
+    <script>
+        window.addEventListener('load', setup);
+        function setup(){
+            var buttons = document.getElementsByTagName('button');
+            buttons[0].addEventListener('click', change);
+        }
+        function change(evt){
+            document.body.style.backgroundColor = 'blue';
+            console.log(evt.target);
+            console.log(evt.target.tagName);  //DOM
+            console.log(this.tagName);
+            console.log(evt.clientX);
+            console.log(evt.clientY);
+        }
+    </script>
+</head>
+<body>
+    <button>Click Me!!!</button>
+</body>
+</html>

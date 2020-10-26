@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원정보 입력 및 수정 페이지</title>
+    <script>
+        window.onload = function(){
+            document.myform.userage.addEventListener('change', agechange, false);
+            document.querySelector('#btnClose').addEventListener('click', myclose, false);
+        }
+        function myclose(){
+            var f = document.myform;
+            opener.document.querySelector('#username').innerHTML = f.username.value;
+            opener.document.getElementsByName('userage')[0].innerHTML = f.userage.value;
+            opener.document.querySelector('#regdate').value = f.regdate.value;
+            var gender = null;
+            if(f.gender[0].checked) gender = f.gender[0].value;
+            else gender = f.gender[1].value;
+            opener.document.querySelector('#gender').value = gender;
+            opener.document.querySelector('#city').innerHTML = f.city.value;
+            window.close();   //자기 창 닫는다.
+        }
+        function agechange(){
+            document.querySelector('#myrange').innerHTML = this.value;
+        }
+    </script>
+</head>
+<body>
+    <form name='myform'>
+        <ul style='list-style-type: none;'>
+            <li>Name : <input type="text" name="username"></li>
+            <li>Age : <input type="range" name="userage" min="20" max="60" value="20"><span id="myrange">20</span></li>
+            <li>Registration Date : <input type="date" name="regdate"></li>
+            <li>Gender : <input type="radio" name="gender" value="남성">남성&nbsp;&nbsp;
+                         <input type="radio" name="gender" value="여성">여성</li>
+            <li>City : <input type="text" name="city" list='citylist'>   </li>
+            <li><button id='btnClose' type='button'>Close</button></li>
+        </ul>
+    </form>
+    <datalist id="citylist">
+        <option value="서울">
+        <option value="부산">
+        <option value="대전">
+        <option value="대구">
+        <option value="광주">
+        <option value="인천">
+        <option value="울산">
+    </datalist>    
+</body>
+</html>

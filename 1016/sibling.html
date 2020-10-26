@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>인접 형제, 일반 형제 선택자 연습</title>
+    <style>
+      /* 인접(Adjacent) 형제 선택자*/
+      header + p { 
+            color : blue;
+        }
+        
+        #container > p + h1 {
+            color : red;
+        } 
+
+      /* 일반 General 형제 선택자*/
+      header ~ ul {
+        /* header + p + h1*/
+        color: purple;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="container">
+      <header>
+        <h1>예약 방법 및 요금</h1>
+      </header>
+
+      <p>쌍용콘도에 예약하는 방법은?</p>
+      <h1>Contact me(tel : 010-1234-5678)</h1>
+
+      <ul>
+        <li>
+          예약방법
+          <ul>
+            <li>직접 통화</li>
+            <li>문자 남기기</li>
+          </ul>
+        </li>
+
+        <li>
+          요금
+          <ol type="i">
+            <li>1인 : 40,000원</li>
+            <li>2인 : 60,000원</li>
+            <li>3인 : 80,000원</li>
+            <li>4인 : 100,000원</li>
+          </ol>
+        </li>
+      </ul>
+    </section>
+  </body>
+</html>

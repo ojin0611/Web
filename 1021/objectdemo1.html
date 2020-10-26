@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object 생성자 연습</title>
+    <script src="script/student1.js"></script>
+</head>
+<body>
+    <script>
+        var chulsu = new Student('2020-01', '김철수', 56, 78, 90);
+        var younghee = new Student('2020-02', '이영희', 100, 90, 80);
+        var jimin = new Student('2020-03', '박지민', 88, 99, 95);
+        var array = [chulsu, younghee, jimin];
+        for(var i = 0 ; i < array.length ; i++){
+            array[i].calc();
+            document.write('<hr>');
+            array[i].toString();
+        }
+        // chulsu.calc();
+        // chulsu.toString();
+        console.log(jimin.getTot());
+    </script>
+</body>
+</html>

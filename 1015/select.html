@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>select tag 연습</title>
+  </head>
+  <body>
+    <form>
+      <ul>
+        <li>
+          <label>Gender : </label>
+          <select name="gender" id="">
+            <option value="">--선택--</option>
+            <option value="male">남성</option>
+            <option value="female" selected="selected">여성</option>
+          </select>
+        </li>
+        <li>
+          <label>drinking : </label>
+          <select name="drinking" id="" multiple="multiple">
+            <option value="" selected>--선택--</option>
+
+            <optgroup label="따뜻한 음료">
+              <option value="">커피</option>
+              <option value="">녹차</option>
+              <option value="">둥굴레차</option>
+            </optgroup>
+
+            <optgroup label="차가운 음료">
+              <option value="">커피</option>
+              <option value="">스무디</option>
+              <option value="">식혜</option>
+            </optgroup>
+          </select>
+        </li>
+        <li></li>
+        <li></li>
+      </ul>
+    </form>
+  </body>
+</html>

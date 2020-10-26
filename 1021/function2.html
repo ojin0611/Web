@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>익명 함수 연습</title>
+    <script>
+        //window.onload = setup;
+        //function setup(){
+        //}
+        window.onload = function(){
+            document.querySelector('#btnChange').onclick = clickMe;
+        }
+        //function clickMe(){
+        var clickMe = function(){
+            document.body.style.backgroundColor = 'yellow';
+        }
+    </script>
+</head>
+<body>
+    <button id="btnChange" type="button">change</button>
+    <script>
+        // function calc(kor, eng, mat){  선언적 함수/static 함수
+        //     return kor + eng + mat;
+        // }
+        // document.write(calc(100, 89,79) + '<br />');
+        // var calc = function(kor, eng, mat){   //익명함수, 함수 literal
+        //     return kor + eng + mat;
+        // }
+        // //document.write(calc(100, 89,79) + '<br />');
+        // var a = calc;   //함수복사
+        // //document.write(a(33, 44, 55));
+        // function myfunction(callback){   //callback
+        //     document.write(callback(55, 66, 77));
+        // }
+        // myfunction(a);   //여기서 함수 호출
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가상요소 (before after) 연습</title>
+    <!--
+        http://blog.hivelab.co.kr/%EA%B3%B5%EC%9C%A0before%EC%99%80after-%EA%B7%B8%EB%93%A4%EC%9D%98-%EC%A0%95%EC%B2%B4%EB%8A%94/
+    -->
+    <style>
+        div > p::before{
+            content: '안녕하세요~!';
+                }
+
+        div > p::after{
+            content: '좋은 아침입니다.!!';
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p>한지민</p>
+        <p>김지민</p>
+    </div>
+</body>
+</html>

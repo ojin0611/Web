@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 객체 연습</title>
+</head>
+<body>
+    <script>
+        function Student(hakbun, name, kor, eng, mat){  // 생성자
+                this.hakbun = hakbun;
+                this.name = name;
+                this.kor = kor;
+                this.eng = eng;
+                this.mat = mat;  // 속성
+                this.toString = function(){
+                    document.write( '학번(' + hakbun + '), 이름(' + name + ')<br />');
+                }
+        }
+        var chulsu = new Student('2020-01', '김철수', 100, 67, 89);
+        chulsu.toString();
+        var younghee = new Student('2020-02', '이영희', 100, 90, 95);
+        younghee.toString();
+        console.log(typeof(chulsu));
+        // console.log(chulsu.name);
+        // console.log(younghee.name);
+        // console.log(chulsu.mat);
+    </script>
+</body>
+</html>

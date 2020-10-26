@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="5;url=https://www.naver.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>location object 연습</title>
+    <script>
+        function mysend(){
+            var age = parseInt(document.querySelector('#userage').value);
+            if(age < 10){
+                location.href = 'https://jr.naver.com/';  //redirect
+            }else if(age >= 10 && age < 20){
+                location.href = 'https://www.youtube.com/';
+            }else if(age >= 20 && age < 65){
+                location.href = 'https://www.hangame.com/';
+            }else{
+                location.href = 'http://busanpeople.or.kr/main/';
+            }
+        }
+    </script>
+</head>
+<body>
+    Age : <input type="number" id="userage">
+    <button id="btnSend" onclick="mysend()">전송</button>
+</body>
+</html>

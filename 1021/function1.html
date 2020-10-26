@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>function 연습</title>
+</head>
+<body>
+    <script>
+        function change(myvariable){
+            myvariable.age = 20;
+            document.write('In Change\'s myvariable = ' + myvariable.age + '<br />');
+        }
+        var a = {age: 5};  //object
+        document.write('Before Change\'s a = ' + a.age + '<br />');
+        change(a);   //Call by Reference
+        document.write('After Change\'s a = ' + a.age + '<br />');
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>연산자 연습</title>
+</head>
+<body>
+    <h1>검색엔진</h1>
+    <!-- <ul>
+        <li><a href="#">Naver</a></li>
+        <li><a href="javascript:void(0);">Google</a></li>
+    </ul> -->
+    <script>
+        var fruits = ['사과', '딸기', '복숭아', '포도'];
+        console.log(fruits.length);  // 4
+        console.log(fruits[0]);       // 사과
+        delete fruits[0];             
+        console.log(fruits.length);  // 4
+        console.log(fruits[0]);       // undefined
+
+        var car = { name : 'Sonata', maker : 'Hyundai', price : 30000000};
+        console.log(car.maker);
+        delete car.maker;
+        console.log(car.maker);
+
+        var myvariable = 'Hello, World';
+        console.log(myvariable);
+        var flag = delete myvariable;
+        console.log(flag); // 삭제 실패
+
+        num = 100;
+        console.log(num);
+        flag = delete num;
+        console.log(flag); // 삭제 성공
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쇼핑몰</title>
+    <style>
+        select {
+            width: 300px;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            document.querySelector('#btnAdd').addEventListener('click', cartAdd, false);
+            document.querySelector('#txtAdd').addEventListener('keydown', myAdd, false);
+            document.querySelector('#cart').addEventListener('click', cartSelect, false);
+            document.querySelector("#btnRemove").addEventListener('click', cartRemove, false);
+        }
+        function cartRemove(){
+            var cart = document.querySelector('#cart');
+            if(cart.selectedIndex != 0){
+                cart.remove(cart.selectedIndex);
+                document.querySelector('#txtRemove').value = '';
+            }
+        }
+        function cartSelect(){
+            //console.log(this.options[this.selectedIndex].text);
+            if(this.selectedIndex != 0){
+                var product = this.options[this.selectedIndex].text;
+                document.querySelector('#txtRemove').value = product;
+            }
+        }
+        function myAdd(evt){
+            if(evt.keyCode == 13) cartAdd();
+        }
+        function cartAdd(){
+            var product = document.querySelector('#txtAdd').value;   //신라면
+            var myoption = document.createElement('option');   //<option></option>
+            myoption.text = product;   //<option>신라면</option>
+            document.querySelector('#cart').add(myoption);
+            document.querySelector('#txtAdd').value = '';
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <div>담기 : <input type='text' id='txtAdd'><input type="button" value="담기" id="btnAdd"></div>
+        <div>
+            <select id="cart" size="10">
+                <option value="">--카트--</option>
+            </select>
+        </div>
+        <div>빼기 : <input type="text" id="txtRemove"><input type="button" value="빼기" id="btnRemove"></div>
+    </div>
+</body>
+</html>

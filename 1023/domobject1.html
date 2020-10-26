@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM object 연습</title>
+    <style>
+        button{
+            font-size:2em;
+        }
+    </style>
+    <script>
+        var mysize;
+        window.onload = function(){
+            mysize = 1;
+            var buttons = document.getElementsByTagName('button');
+            buttons[0].addEventListener('click', myresize, false);
+            buttons[1].addEventListener('click', myresize, false);
+        }
+        function myresize(evt){
+            if(evt.target.innerHTML == '+'){
+                mysize += 0.1;
+            }else if(evt.target.innerHTML == '-'){
+                mysize -= 0.1;
+            }
+            document.getElementsByTagName('div')[1].style.fontSize = mysize + 'em';
+        }
+    </script>
+</head>
+<body>
+    <div><button>+</button>&nbsp;&nbsp;<button>-</button></div>
+    <div>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi aliquid unde asperiores quas praesentium similique necessitatibus distinctio, repudiandae enim culpa maxime nisi officia itaque incidunt fuga fugiat laborum dolores ut?
+    Possimus a quidem eligendi officia soluta, fugiat animi suscipit dolor maiores dolorem placeat? Voluptas, iure iste animi facere, harum ex obcaecati porro autem hic minus asperiores aliquid doloremque fuga quis?
+    Commodi sit quidem eaque dignissimos facere cupiditate? Porro quidem aspernatur ratione eius nemo quis ducimus cumque at optio, consequatur tempora aperiam fugiat repellat praesentium laboriosam error accusantium. Assumenda, ea voluptatum.
+    Minima quae repudiandae officiis molestiae, quidem tempore molestias vel accusantium incidunt quaerat eveniet reprehenderit provident sed quos expedita laudantium voluptatibus excepturi error possimus quod perferendis laboriosam non! Quasi, similique repellat!
+    Ad in suscipit autem possimus non maiores qui quia nemo ea sed! Porro tempore sequi aperiam quae asperiores aspernatur blanditiis recusandae consequatur pariatur quia magni magnam mollitia, nemo dolorum veritatis.
+    Nesciunt quae earum officiis sequi deserunt commodi non, voluptatibus debitis dolorem amet enim impedit, ipsa dolor. A fugit aliquid laboriosam tempore vel eos. Incidunt qui corporis nesciunt amet, sed sit.
+    Est, sit inventore fuga cum dolor facilis atque, nihil explicabo, officiis consectetur enim! Sint cum magni consequuntur assumenda possimus necessitatibus quam, veniam a harum amet aspernatur iusto accusamus aperiam ad!</div>
+</body>
+</html>

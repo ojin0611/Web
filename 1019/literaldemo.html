@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Literal Demo</title>
+</head>
+<body>
+    Name : <input type="text"><br />
+    Age : <input type="number"><br />
+    <button onclick='showInfo()'>Click Me!!!</button>
+    <script>
+        function showInfo(){    /* showInfo : 버튼을 눌러야 실행되는 명령어*/
+        var array = document.getElementsByTagName('input');
+        // console.log('Hello, World');
+
+        var username = array[0].value;
+        var userage = array[1].value;
+        alert(username + '님! 귀하의 나이는 ' + userage + '살이군요.');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>event 연습</title>
+    <script>
+        function change(color){
+            document.body.style.backgroundColor = color;
+        }
+        function back(){
+            document.body.style.backgroundColor = 'white';
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <button type='button' onmouseover="change('red')" onmouseout="back()">RED</button>&nbsp;&nbsp;&nbsp;
+        <button type='button' onmouseover="change('blue')" onmouseout="back()">BLUE</button>
+    </div>
+</body>
+</html>

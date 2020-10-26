@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>상태 선택자 연습</title>
+
+    <style>
+      input[type="text"]:disabled {
+        background-color: yellow;
+        border: 1px dotted red;
+      }
+
+      input[type="text"]:enabled {
+        background-color: white;
+        border: 1px solid black;
+      }
+
+      input[type="radio"]:checked + span {
+        color: blue;
+        font-size: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="">
+      Name : <input type="text" id="username" disabled="disabled" /><br />
+      <p>
+        <button
+          type="button"
+          onclick="document.getElementById('username').disabled=false;"
+        >
+          활성화</button
+        >&nbsp;&nbsp;
+        <button
+          type="button"
+          onclick="document.getElementById('username').disabled=true;"
+        >
+          비활성화
+        </button>
+      </p>
+      <br />
+      성별 : <input type="radio" name="gender" /><span>남성</span>&nbsp;&nbsp;
+      <input type="radio" name="gender" checked /><span>여성</span>
+    </form>
+  </body>
+</html>

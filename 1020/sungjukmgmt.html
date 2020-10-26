@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>성적관리프로그램</title>
+    <style>
+        input[type]:focus{
+            background-color: yellow;
+            transform: scale(1.5, 1.5);
+
+        }
+    </style>
+
+    <script>
+        function calculate(){
+            var f = document.myform;
+            var hakbun = f.hakbun.value;
+            var name = f.name.value; 
+            var kor = parseInt(f.kor.value);
+            var eng = parseInt(f.eng.value);
+            var mat = parseInt(f.mat.value);
+            var tot = kor + eng + mat;
+            var avg = tot / 3.;
+            var grade = (avg >= 90) ? 'A' :
+                                (avg >= 80) ? 'B' : 
+                                   (avg >= 70) ? 'C' :
+                                     (avg >= 60) ? 'D' : 'F';
+            var str = name + '(' + hakbun + ')<br />';
+            str += '국어(' + kor + '), 영어(' + eng + '), 수학(' + mat + ')<br />';
+            str += '총점(' + tot + '),  평균(' + avg + '), 평점(' + grade + ')';
+            //document.getElementById('result');
+            document.querySelector('#result').innerHTML = str;
+        }
+    </script>
+</head>
+<body>
+    <form name="myform">
+        <ul style='list-style-type: none;'>
+            <li>학번 : <input type="text" name="hakbun"></li>
+            <li>이름 : <input type="text" name="name"></li>
+            <li>국어 : <input type="number" name="kor" min='0' max='100'></li>
+            <li>영어 : <input type="number" name="eng" min='0' max='100'></li>
+            <li>수학 : <input type="number" name="mat" min='0' max='100'></li>
+            <li><button type='button' onclick="calculate()">계산하기</button></li>
+        </ul>
+    </form>
+    <hr>
+    <div id='result'></div>
+</body>
+</html>

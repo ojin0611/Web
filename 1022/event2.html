@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event 전파 방향 연습</title>
+    <style>
+        body { background-color: yellow;}
+        div {
+            width : 200px; height:200px;  background-color: red;
+        }
+        button {
+            width:100px; height:100px;  background-color: lime;
+        }
+    </style>
+    <script>
+        /*
+            Event 전파 방향
+            1. Bubble Up : default, false, DOM Tree상 아래에서 위로 전파.
+            2. Cascade Down : true, DOM Tree상 위에서 아래로 전파
+        */
+        window.addEventListener('load', setup, false);
+        function setup(){
+            document.querySelector('#mybody').addEventListener('click', bodyClick, true);
+            document.querySelector('#mydiv').addEventListener('click', divClick, true);
+            document.querySelector('#mybutton').addEventListener('click', buttonClick, true);
+        }
+        function bodyClick(){   alert('body가 눌렸어요.');    }
+        function divClick(){   alert('div가 눌렸어요.');    }
+        function buttonClick(){   alert('button이 눌렸어요.');    }
+    </script>
+</head>
+<body id="mybody">
+    <div id="mydiv">
+        <button id="mybutton">Click Me!</button>
+    </div>
+</body>
+</html>

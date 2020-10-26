@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>window object 연습</title>
+</head>
+<body>
+    <script>
+        var name = prompt('이름 : ');
+        var age = prompt('나이 : ');
+        var flag = confirm('이름 = ' + name + '\n나이 = ' + age + ', 맞습니까?');
+        if(flag){
+            alert('귀하의 이름은 ' + name + '이고 귀하의 나이는 ' + age + '이군요.');
+        }else{
+            alert("다시 입력해 주세요.");
+        }
+    </script>
+</body>
+</html>

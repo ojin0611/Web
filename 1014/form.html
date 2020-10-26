@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form tag 연습</title>
+    <style>
+        ul{
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="login.jsp" method="POST">
+        <ul>
+            <li> <label for="userid">ID : </label><input type="text" name="userid" id="userid" required="required" placeholder="아이디를 입력해주세요." size="50" autofocus="autofocus"><br /></li>
+            <li><label for="userpwd">PW : </label><input type="password" name="userpwd" id="userpwd" required="required" minlength="5" value="여기는 패스워드 창입니다."><br /></li>
+            <li><label>핸드폰번호 : </label><input type="tel"></li>
+            <li><label>Email : </label><input type="email"></li>
+            <li><input type="submit" value="로그인하기"></li>
+            <li><input type="reset" value="취소하기"></li>
+        </ul>
+    </form>
+</body>
+</html>

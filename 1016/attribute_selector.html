@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>가상 클래스, 속성 선택자 연습</title>
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+
+    <style>
+      input[type="submit"]:hover,
+      button:hover {
+        font-size: 30px;
+        font-weight: 900;
+      }
+      input[type="email"]:focus,
+      input[type="password"]:focus {
+        background-color: yellow;
+        color: red;
+        font-size: 25px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>회원가입</h1>
+    <form>
+      <fieldset id="first">
+        <legend class="legend_bg">기본정보</legend>
+        <ul>
+          <li>
+            <label for="">ID(Email)</label>
+            <input type="email" name="" id="" size="40" />
+          </li>
+          <li>
+            <label for="">비밀번호</label>
+            <input type="password" name="" id="" />
+          </li>
+          <li>
+            <label for="">비밀번호(확인)</label>
+            <input type="password" name="" id="" />
+          </li>
+        </ul>
+      </fieldset>
+
+      <fieldset id="second">
+        <legend class="legend_bg">추가정보</legend>
+        <ul>
+          <li>
+            <label for="">전화번호</label> <input type="tel" name="" id="" />
+          </li>
+          <li>
+            <label for="">주소</label>
+            <input type="text" name="" id="" size="50" />
+          </li>
+        </ul>
+      </fieldset>
+
+      <ul>
+        <li>
+          <input type="submit" value="제출" />&nbsp;&nbsp;
+          <button type="reset">취소</button>
+        </li>
+      </ul>
+    </form>
+  </body>
+</html>

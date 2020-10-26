@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>연산자 연습</title>
+</head>
+<body>
+    <script>
+        var fruits = ['사과', '딸기', '복숭아', '포도'];
+        console.log(0 in fruits); // true
+        var flag = delete fruits[0];
+        console.log(flag);          // true
+        console.log(0 in fruits); // false
+        console.log(fruits.length);
+
+        // JSON 표기법
+        var car = { name : 'Sonata', maker : 'Hyundai', price : 30000000};
+        console.log('name' in car); // true
+        flag = delete car['name'];
+        console.log(flag);              // true
+        console.log('name' in car); // false       
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM object 연습</title>
+    <script>
+        var img;
+        window.onload = function(){
+            img = document.getElementsByTagName('img')[0];
+            img.src="images/sun.jpg";
+            img.style.width="300px";
+            img.style.height="300px";
+            img.title = "This is a SUN.";
+            document.getElementsByClassName('mybtn')[0].addEventListener('click',
+                                                     myclick, false);
+        }
+        function myclick(){
+            img.src = "images/moon.jpg";
+            img.style.width = "300px";
+            img.style.height = "300px";
+            img.title = "This is a moon.";
+        }
+    </script>
+</head>
+<body>
+    <div><button class="mybtn">change</button></div>
+    <hr>
+    <img>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가상클래스, first last 선택자 연습</title>
+
+    <style>
+        /* div > p:first-child {
+            color : blue;
+        } */
+
+        div > :first-child{
+            color : green;
+        }
+        
+        div > p:first-of-type { /* p들중 첫째*/
+            color : blue;
+        }
+
+        div > p:last-of-type { /* p들중 막내*/
+            color : red;
+        }
+    </style>
+
+</head>
+<body>
+    <div>
+        <h1>Hello, World</h1><!-- 전체 첫째-->
+        <p>자신의 삶을 주도하라.</p> <!--p 중에 첫째-->
+        <p>끝을 생각하며 시작하라.</p>
+        <p>소중한 것을 먼저 해라.</p>
+        <p>WIN-WIN을 생각해라.</p>
+        <p>먼저 이해하고 다음에 이해시켜라.</p>
+        <p>시너지를 내라.</p>
+        <p>끊임없이 쇄신하라.</p> <!--p 중 막내-->
+        <h2>스티븐 코비의 책 소개 였습니다.</h2><!--전체 막내-->
+    </div>
+</body>
+</html>

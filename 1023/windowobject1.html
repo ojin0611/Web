@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>window Object 연습</title>
+    <script>
+        window.onload = function(){
+            var engines = document.getElementsByName('engine');
+            for(var i = 0 ; i < engines.length ;i++) 
+                engines[i].addEventListener('click', myclick, false);
+            document.querySelector('#mybutton').addEventListener('click', myclose, false);
+        }
+        var mywindow = null;
+        function myclose(){
+            mywindow.close();
+        }
+        function myclick(){
+            var array = ['https://www.naver.com', 'https://www.daum.net', 
+                          'https://www.google.com', 'https://www.nate.com'];
+            var url = null;
+            for(var i = 0 ; i < array.length ; i++){
+                if(document.getElementsByName('engine')[i].checked)
+                    url = array[i];
+            }
+            var left = screen.width / 2 - 250;
+            var top = screen.availHeight / 2 - 250;
+            mywindow = window.open(url, '_blank', 'width=500, height=500, left=' + left + ',top=' + top);
+        }
+
+    </script>
+</head>
+<body>
+    <form name='myform'>
+        검색엔진 : <button type='button' id='mybutton'>Close</button><br />
+        <input type="radio" name="engine">Naver<br />
+        <input type="radio" name="engine">Daum Kakao<br />
+        <input type="radio" name="engine">Google<br />
+        <input type="radio" name="engine">Nate<br />
+    </form>
+</body>
+</html>

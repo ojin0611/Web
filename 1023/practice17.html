@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>연습문제 17번</title>
+</head>
+<body>
+    <script>
+        var obj = {
+            '이름':'C#프로그래밍(2판)',
+            '초판 발행' : '2019년 12월 10일',
+            '지은이' : '윤인성',
+            '펴낸곳' : '한빛아카데미(주)',
+            tag : ['윤인성', '한빛아카데미', 'C#' ,'프로그래밍'],
+            toString : function(){ 
+                document.write(this['이름']); 
+            }
+        }
+        //obj.toString();
+        for(var myvariable in obj){
+            if(!(obj[myvariable] instanceof Function)){ //함수가 아니라면
+                document.write(myvariable + ' ---> ' + obj[myvariable] + '<br />');
+            }
+            //document.write(myvariable + '<br />');
+        }
+    </script>
+</body>
+</html>

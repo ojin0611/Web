@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Object 연습</title>
+</head>
+<body>
+    <script>
+        // var str = 'Hello';
+        // console.log(typeof(str));           // string , not Object
+        // var str1 = String('Hello');
+        // console.log(typeof(str1));          // string, not Object
+        // var str2 = new String('Hello');
+        // console.log(typeof(str2));          // string, not String
+        // console.log(typeof(str2.valueOf()));
+
+        var student = {
+            hakbun : '2020-01',
+            name : '한지민',
+            kor : 90,
+            eng : 100,
+            mat : 85, 
+            tot : null, // property 속성
+            calcSum : function(){ // method
+                tot = this.kor + this.eng + this.mat;
+            },
+            toString : function(){
+                document.write('학번(' + this.hakbun + '), 이름(' + this.name + ')');
+            }
+        };
+        student.toString();
+        // student.calcSum();
+        // console.log(student.tot);
+        // console.log(student.name);
+        // console.log(student['kor']);
+        // student.name = '김지민';
+        // console.log(student.name);
+        // student.edp = 100;
+        // console.log(student['edp']);
+        // delete student.kor;
+        // console.log(student.kor);
+        // var chulsu = student;
+        // console.log(chulsu.name);
+        // var chulsu = student; // Java의 주소복사와 비슷
+        // console.log(typeof(chulsu));
+
+    </script>
+</body>
+</html>

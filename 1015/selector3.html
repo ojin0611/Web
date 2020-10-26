@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selector 연습</title>
+    <style>
+        a[href='ftp://ftp.naver.com']{background-color: yellow;}
+        a[href$='net']{background-color: red;}
+        a[href^='mailto']{background-color:green;}
+        a[href*='hello']{background-color:orange;}/* 값의 일부 */
+        a[href~='html5']{background-color:blue;} /* 단어별로 일치 */
+        a[href|='html5']{background-color:purple;} /* 포함 및 하이픈도 가능*/
+    </style>
+</head>
+<body>
+    <h1>검색엔진</h1>
+    <ul>
+        <li><a href="ftp://ftp.naver.com">Naver</a></li>
+        <li><a href="http://www.daum.net">Daum Kakao</a></li>
+        <li><a href="mailto://www.google.com">Google</a></li>
+        <li><a href="natehelloworld">Nate</a></li>
+        <li><a href="html5 css3">Sist</a></li>
+        <li><a href="html5-css3">Samsung</a></li>
+        
+    </ul>
+</body>
+</html>

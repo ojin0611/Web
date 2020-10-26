@@ -1,0 +1,21 @@
+@charset "utf-8";
+h1 { text-align: center; }
+form { text-align: center;}
+ul { list-style-type: none;}
+li { line-height: 1.5em;}
+table { 
+    width:800px; margin-left: auto; margin-right: auto ; 
+    border-collapse: collapse; border :1px solid white;}
+td, th{ border : 1px solid white; }
+th { background-color: navy;  color:white; height:40px; width:100px;}
+td { text-align: center;}
+input[type='text']:focus, input[type='number']:focus{
+    background-color: yellow;
+    transform: scale(1.5, 1.5);
+}
+#countth{
+    text-align: right;
+    background-color: white;
+    color:blue;
+    height:30px;
+}

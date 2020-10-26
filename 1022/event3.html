@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event 전파 방해 연습</title>
+    <script>
+        /*
+        DOM Level 0
+        function check(evt){
+            if(!document.myform.username.value){  //값이 없다면
+                alert('이름의 값이 없습니다.');
+                document.myform.username.focus();
+                return false;   //Event전파 막아라.
+            }else{
+                return true;
+            }
+        }*/
+        window.addEventListener('load', function(){
+            document.myform.addEventListener('submit', function(evt){
+                if(!this.username.value){  //이름의 값이 없다면
+                    alert('이름의 값이 없습니다.');
+                    this.username.focus();
+                    //return false;
+                    evt.preventDefault();    //이벤트 전파 막아라.
+                }
+            }, false);
+        }, false);
+    </script>
+</head>
+<body>
+    <!-- <form action="test.jsp" method="get" name="myform" onsubmit="return check();"> -->
+    <form action="test.jsp" method="get" name="myform">
+        Name : <input type="text" name="username"><br />
+        <input type="submit" value="전송하기">
+    </form>
+</body>
+</html>

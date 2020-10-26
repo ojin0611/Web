@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>성적관리프로그램</title>
+    <script src='script/student1.js'></script>
+    <script>
+        function calc(array){
+            for(var i = 0 ; i < array.length ;i++){
+                array[i].calc();
+            }
+        }
+        function mysort(array){
+            //bubble sorting
+            for(var i = 0 ; i < array.length - 1 ; i++){
+                for(var j = 0 ; j < array.length - 1 ; j++){
+                    if(array[j].getTot() < array[j+1].getTot()){
+                        var temp = array[j];
+                        array[j] = array[j+1];
+                        array[j+1] = temp;
+                    }
+                }
+            }
+        }
+        function output(array){
+            for(var i = 0 ; i < array.length;  i++){
+                array[i].toString();
+            }
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var array = [];
+        var jimin = new Student('2020-01', '김지민', 100, 99, 88);
+        array.push(jimin);
+        var chulsu = new Student('2020-02', '박철수', 77, 88, 99);
+        array.push(chulsu);
+        var younghee = new Student('2020-03', '이영희', 95, 98, 97);
+        array.push(younghee);
+        calc(array);
+        mysort(array);
+        output(array);
+    </script>
+</body>
+</html>
