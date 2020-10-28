@@ -92,3 +92,38 @@ server.xml 파일 21번째 line 수정 (<Server port="8005" shutdown="SHUTDOWN">
 > AJP에서 Tomcat으로 가는 통로는 8009
 
 ![User-Apache-Tomcat-Servlet](./apache-tomcat-servlet.PNG)
+
+위 그림에서는 web.xml 파일에서 <servlet-mapping> / <servlet>로 매핑하고있는데
+
+@WebServlet annotation을 이용하면 굳이 매핑할 필요없음
+
+> @WebServlet("urlPattern")
+
+
+
+## 도메인으로 접근하기
+
+Tomcat/webapps/manager/META-INF/context.xml
+
+> valve 뭐시기 수정
+
+
+## MySQL Download
+
+[Community](https://dev.mysql.com/downloads/file/?id=499590)
+
+[Workbench](https://dev.mysql.com/downloads/workbench/)
+
+## MariaDB Download
+
+https://mariadb.org/download/
+
+## Oracle 
+
+Oracle XE 184
+
+https://www.oracle.com/kr/database/technologies/appdev/xe.html
+
+
+
+패킷의 헤더, 패킷의 바디
