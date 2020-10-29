@@ -1,0 +1,32 @@
+h1, form, div{
+    text-align: center; /* 헤드라인을 가운데정렬, 폼의 내용들도 가운데정렬 */
+}
+
+form.registerform{
+    text-align : left;
+}
+
+table {
+        width : 500px;                /* 테이블을 가운데정렬*/
+        margin-left : auto;
+        margin-right : auto;
+        border : 1px solid black;
+}
+
+td, th{
+    border : 1px solid black;
+}
+
+th{
+    background-color: navy;
+    color: white;
+    width: 100px;
+}
+
+td{
+    text-align: center;
+}
+
+ul.register{
+    list-style-type: none;
+}
