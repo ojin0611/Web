@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" 
+        id="WebApp_ID" version="4.0"
+        metadata-complete="true">
+  <display-name>Welcome to 1030</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  <servlet>
+  	<servlet-name>Include</servlet-name>
+  	<servlet-class>com.example.libs.IncludeDemo</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>Now</servlet-name>
+  	<servlet-class>com.example.libs.NowServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>MyContext</servlet-name>
+  	<servlet-class>com.example.libs.ContextDemoServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>MyLocal</servlet-name>
+  	<servlet-class>com.example.libs.LocalDemoServlet</servlet-class>
+  	<init-param>
+  		<description>MySQL을 연결하기 위한 properties 파일경로</description>
+  		<param-name>mariadb.properties</param-name>
+  		<param-value>C:/temp/mariadb.properties</param-value>
+  	</init-param>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>MyLocal</servlet-name>
+  	<url-pattern>/servlets/servlet/LocalDemo</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>MyContext</servlet-name>
+  	<url-pattern>/servlets/servlet/ContextDemo</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Include</servlet-name>
+  	<url-pattern>/servlets/servlet/Include</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Now</servlet-name>
+  	<url-pattern>/servlets/servlet/Now</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <context-param>
+  	<description>MySQL Driver</description>
+  	<param-name>db.driver</param-name>
+  	<param-value>com.mysql.jdbc.Driver</param-value>
+  </context-param>
+  <context-param>
+  	<description>연결 URL</description>
+  	<param-name>db.url</param-name>
+  	<param-value>jdbc:mysql://localhost:3306/world</param-value>
+  </context-param>
+  <context-param>
+  	<description>DB유저이름</description>
+  	<param-name>db.user</param-name>
+  	<param-value>root</param-value>
+  </context-param>
+  <context-param>
+  	<description>DB유저의 비밀번호</description>
+  	<param-name>db.password</param-name>
+  	<param-value>javamysql</param-value>
+  </context-param>
+  
+  
+  
+  
+  
+  
+</web-app>
