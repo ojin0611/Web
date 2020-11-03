@@ -100,12 +100,26 @@ server.xml 파일 21번째 line 수정 (<Server port="8005" shutdown="SHUTDOWN">
 > @WebServlet("urlPattern")
 
 
+### 톰캣-서블릿-자바 연동 확인하기!
 
-## 도메인으로 접근하기
+url = localhost:8080/1028/servlets/servlet/Register 
 
-Tomcat/webapps/manager/META-INF/context.xml
+기본지식
+1. 포트번호 8080이니까 Client에서 Tomcat으로 바로 전송  
+2. /1028을 입력하면 Root/1028로 전송 (Root랑 1028이 있는지 톰캣 conf 확인)  
+3. /servlets/servlet/Register  을 보내면 이를 받아주는 자바 **클래스** 파일 필요.
+(이 때, WebAnnotation 형태로 받는지, servlet-mapping 형태로 받는지 확인)  
 
-> valve 뭐시기 수정
+
+체크리스트
+1. Tomcat이 Root 잡고있는지 (homecontext.xml의 docBase)
+2. Tomcat이 1028을 잡고있는지 (server.xml의 Context)
+3. 1028디렉토리 metadata-complete (1028/WEB-INF/web.xml > false) 
+	<!--false는 WebServlet Annotation 쓰겠다는 뜻-->
+4. form에서 POST로 보내는 링크주소 확인 (register.html )
+5. @WebServlet() 내의 URL 확인 (register.java )
+6. 컴파일된 클래스파일 있는지 확인 (WEB-INF/classes/~.class )
+
 
 
 ## MySQL Download

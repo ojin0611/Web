@@ -46,5 +46,4 @@ public class RegisterServlet extends HttpServlet{
 	throws ServletException, IOException{
 		this.doGet(req, res);
 	}
-	
 }
