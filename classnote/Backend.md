@@ -139,5 +139,70 @@ Oracle XE 184
 https://www.oracle.com/kr/database/technologies/appdev/xe.html
 
 
+### War
+출처: https://dololak.tistory.com/31
+
+WAR(WebApplication Archive)
+WAR란 WebApplication Archive의 약자로 말그대로 웹 어플리케이션 저장소이며 웹 어플리케이션을 압축해 저장해 놓은 파일이라고 생각하시면 됩니다.
+
+개발한 웹어플리케이션 프로젝트가 WAS에서 돌아갈 수 있는 구조를 담고 있으며 JSP 및 서블릿 빈클래스 등의 소스가 컴파일 되어 저장되며 기타 이미지 및 자원들이 포함되어 있습니다.
+ 
+
+배포
+
+WAS에 웹 어플리케이션을 배포하기 위해서는 톰캣을 기준으로 다음의 세가지 방법이 있습니다.
+
+1. 웹 어플리케이션 프로젝트 그대로 복사하여 WAS webapps 폴더 하위에 복사하여 배포
+2. 프로젝트.war 로 압축하여 webapps 폴더 하위에 복사한 후 톰캣을 기동하여 자동 배포
+3. 톰캣 관리자 페이지에서 프로젝트.war 파일을 등록하여 자동으로 배포
+
+1번의 경우 로컬에서 개발하여 테스트를 위해 로컬로 복사하는 경우 편하겠지만 웹 어플리케이션 규모가 크고, 서버가 외부에 있는 경우 수많은 폴더들과 파일을 통째로 옮겨야 하기 때문에 번거롭습니다.
+
+2, 3번의 경우에는 로컬에서 개발하여 FTP 등을 통해 원격 운영서버로 war파일만 옮겨 배포하는 경우등에 유용합니다.
+
+
 
 패킷의 헤더, 패킷의 바디
+
+## JSP의 9가지 구성요소
+
+1. directive(지시자, 지시부)
+```jsp
+<%@ page ~ %>
+<%@ taglib ~ %>
+<%@ include ~ %>
+```
+
+2. scriptlet 
+```jsp
+<% Java Code %>
+```
+
+3. expression
+```jsp
+<%= %>
+```
+
+4. declartion
+```jsp
+<%! %>
+```
+
+5. comment
+> 자바,JSP 모두 주석처리
+
+```jsp
+<%-- --%>
+```
+
+6. implicit object
+> 9개의 내장 객체가 존재
+
+7. action tag
+```jsp
+<jsp:~ />
+```
+
+8. EL & JSTL
+
+9. Custom Tag
