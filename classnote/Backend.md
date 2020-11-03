@@ -149,3 +149,46 @@ WAS에 웹 어플리케이션을 배포하기 위해서는 톰캣을 기준으�
 
 
 패킷의 헤더, 패킷의 바디
+
+## JSP의 9가지 구성요소
+
+1. directive(지시자, 지시부)
+```jsp
+<%@ page ~ %>
+<%@ taglib ~ %>
+<%@ include ~ %>
+```
+
+2. scriptlet 
+```jsp
+<% Java Code %>
+```
+
+3. expression
+```jsp
+<%= %>
+```
+
+4. declartion
+```jsp
+<%! %>
+```
+
+5. comment
+> 자바,JSP 모두 주석처리
+
+```jsp
+<%-- --%>
+```
+
+6. implicit object
+> 9개의 내장 객체가 존재
+
+7. action tag
+```jsp
+<jsp:~ />
+```
+
+8. EL & JSTL
+
+9. Custom Tag

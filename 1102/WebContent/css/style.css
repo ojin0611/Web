@@ -1,0 +1,26 @@
+@charset "UTF-8";
+h1 {
+	text-align:center;
+}
+
+table{
+	 width:350px;
+	 margin-left:auto;
+	 margin-right:auto;
+}
+
+th{
+	height:30px;
+	background-color:darkblue;
+	color:white;
+}
+
+.sunday {
+	color:red;
+	font-weight:900;
+}
+
+.saturday{
+	color:blue;
+	font-style:italic;
+}
