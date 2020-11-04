@@ -119,7 +119,7 @@ url = localhost:8080/1028/servlets/servlet/Register
 4. form에서 POST로 보내는 링크주소 확인 (register.html )
 5. @WebServlet() 내의 URL 확인 (register.java )
 6. 컴파일된 클래스파일 있는지 확인 (WEB-INF/classes/~.class )
-
+   - 이 때, 이클립스로 web 프로젝트를 만들면 build/classes에 저장되기때문에 톰캣이 위치를 잡지 못한다. 
 
 
 ## MySQL Download
