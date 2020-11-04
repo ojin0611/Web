@@ -148,7 +148,7 @@ WAR란 WebApplication Archive의 약자로 말그대로 웹 어플리케이션 �
 개발한 웹어플리케이션 프로젝트가 WAS에서 돌아갈 수 있는 구조를 담고 있으며 JSP 및 서블릿 빈클래스 등의 소스가 컴파일 되어 저장되며 기타 이미지 및 자원들이 포함되어 있습니다.
  
 
-배포
+#### War 배포
 
 WAS에 웹 어플리케이션을 배포하기 위해서는 톰캣을 기준으로 다음의 세가지 방법이 있습니다.
 
@@ -160,49 +160,150 @@ WAS에 웹 어플리케이션을 배포하기 위해서는 톰캣을 기준으�
 
 2, 3번의 경우에는 로컬에서 개발하여 FTP 등을 통해 원격 운영서버로 war파일만 옮겨 배포하는 경우등에 유용합니다.
 
+# JSP
+
+## JSP 컨테이너의 역할
+웹 브라우저가 JSP 페이지 요청이 오면 JSP 컨테이너는 해당 jsp 파일을 '서블릿'이라고 부르는 자바 파일로 변환시킨다. 그 다음 자바 파일을 컴파일하고, 클래스 파일의 실행결과가 사용자의 브라우저로 전송된다.
+
+(3~6은 JSP 컨테이너에서 실행됨)
+1. 웹브라우저가 웹서버에게 JSP 페이지 요청
+2. 웹 서버가 JSP 컨테이너로 전송
+3. JSP 파일 파싱
+4. 서블릿으로 변환
+5. 클래스 파일 생성
+6. 메모리에 적재되어 실행됨
+7. 웹 서버로 HTML 전송
+8. 웹 브라우저에 HTML 표시
 
 
-패킷의 헤더, 패킷의 바디
 
-## JSP의 9가지 구성요소
+## JSP 문법 요소
+### 스크립트 요소
+1. 선언문 (Declaration)
+2. 스크립트릿 (Scriptlet)
+3. 표현식 (Expression)
 
-1. directive(지시자, 지시부)
-```jsp
-<%@ page ~ %>
-<%@ taglib ~ %>
-<%@ include ~ %>
-```
+### 주석 (Comment)
+4. 주석
 
-2. scriptlet 
-```jsp
-<% Java Code %>
-```
+### 지시자
+5. 지시자 (Directive)
 
-3. expression
-```jsp
-<%= %>
-```
+### 액션 태그 (Action Tag)
+6. Action Tag
 
-4. declartion
+---
+
+1. declartion
+
+변수나 메소드 선언
+
+멤버변수!
+
+객체 생성시, 멤버변수가 먼저 만들어지고 다음에 메소드가 만들어진다.
 ```jsp
 <%! %>
 ```
 
-5. comment
+2. scriptlet 
+
+지역변수 선언. 메소드 선언은 불가능
+
+technically, _jspService 메소드 안에 선언되는 요소다.
+
+```jsp
+<% Java Code %>
+```
+
+
+3. expression
+
+표현식은 결과로만 출력할 수 있다. if/else 등은 불가능
+
+변수를 출력하거나 메소드의 결과값을 브라우저에 출력한다.
+
+```jsp
+<%= %>
+```
+
+4. comment
 > 자바,JSP 모두 주석처리
 
+JSP내에 아래처럼 입력하면 소스 보기를 해도 주석이 나타나지 않는다.
 ```jsp
 <%-- --%>
 ```
+JSP내에 HTML의 주석 (`<!-- -->`)을 넣으면 소스보기 할 때 주석 코드가 보인다.
 
-6. implicit object
-> 9개의 내장 객체가 존재
-
-7. action tag
-```jsp
-<jsp:~ />
+스크립트릿이나 선언문에서는 아래와 같은 주석처리방법이 사용된다.
+```
+<% /* 여러 줄 주석 */ %>
+<% // 한줄 주석 %>
 ```
 
-8. EL & JSTL
 
-9. Custom Tag
+5. directive(지시자, 지시부)
+
+클라이언트의 요청에 jsp 페이지가 실행이 될 때 필요한 정보를 JSP 컨테이너에게 알리는 역할
+
+```jsp
+<%@ page ~ %>
+<%@ include ~ %>
+<%@ taglib ~ %>
+
+<%-- 
+page
+- info
+- language
+- contentType
+- extends
+- import
+- session
+- buffer
+- autoFlush
+- isThreadSafe
+- trimDirectiveWhitespaces
+- errorPage
+- isErrorPage
+- pageEncoding
+
+include
+- file
+--%>
+```
+
+6. action tag
+```jsp
+<jsp:~ />
+<%--
+- include
+- forward
+- plug-in
+- useBean
+- setProperty
+- getProperty
+--%>
+```
+
+## 내부 객체 (implicit object)
+내부 객체란 jsp 페이지를 작성할 때 특별한 기능을 제공하는 JSP 컨테이너가 제공하는 특별한 객체를 말한다. 즉, 위의 JSP 문법요소들과 함께 동작해 사용자의 요청을 적절히 처리하여 동적으로 HTML을 생성한다.
+
+### 입출력 관련
+
+### 외부 환경 정보 제공
+
+### 서블릿 관련
+
+### 예외 관련
+
+
+내부 객체 (9가지)
+1. 
+
+
+
+
+
+EL & JSTL
+
+Custom Tag
