@@ -289,19 +289,95 @@ include
 내부 객체란 jsp 페이지를 작성할 때 특별한 기능을 제공하는 JSP 컨테이너가 제공하는 특별한 객체를 말한다. 즉, 위의 JSP 문법요소들과 함께 동작해 사용자의 요청을 적절히 처리하여 동적으로 HTML을 생성한다.
 
 ### 입출력 관련
+1. request
+2. response
+3. out
 
 ### 외부 환경 정보 제공
+4. session 
+5. application 
+6. pageContext
 
 ### 서블릿 관련
+7. page
+8. config
 
 ### 예외 관련
-
+9. exception
 
 내부 객체 (9가지)
-1. 
+1. request 객체  
+사용자가 입력한 폼으로부터 특정한 값을 입력하거나 선택한 값을 jsp 페이지 내에서 값을 받아와 처리하기 위해서 사용할 수 있다.  
+HttpServletRequest 객체 타입의 request 객체명을 사용한다.  
+아래 요청 메소드를 이용해 폼 태그로부터 넘어오는 요청정보를 분석할 수 있게 된다.
+
+요청 메소드
+- getParameter(name)
+- getParameterValues(name)
+- getParameterNames()
+- setCharacterEncoding(env)
+
+2. response 객체  
+요청을 시도한 클라이언트로 전송할 응답을 나타내는 데이터 묶음이다.  
+HttpServletResponse 객체 타입의 response 객체명을 사용한다.
+
+- setHeader(name, value)
+- setContentType(type)
+- setRedirect(url)
+- getCharacterEncoding()
+
+3. out 객체
+
+jsp 페이지의 결과를 클라이언트에 전송해주는 출력 스트림. jsp 페이지가 클라이언트에게 보내는 모든 정보는 out 객체를 통해 전달된다.  
+java.io.Writer 클래스를 상속받은 javax.servlet.jsp.JspWriter 클래스 타입의 객체, out 객체명을 사용한다.
+
+- isAutoFlush()
+- getBufferSize()
+- getRemaining()
+- clearBuffer()
+- println(string)
+- flush()
+- close()
+
+4. session 객체
+
+클라이언트 요청에 관한 Context 정보의 **세션**과 관련된 정보를 저장하고 관리하는 내부 객체.  
+다른 내부객체들은 jsp 페이지 내의 스크립트릿에서 묵시적으로 사용할 수 있지만 session 객체는 page 지시자의 session 속성이 true로 설정돼있어야 사용할 수 있다.
+
+- getId()
+- getCreationTime()
+- getLastAccessedTime()
+- setMaxInactiveInterval(time)
+- getMaxInactiveInterval()
+- isNew()
+- invalidate()
+
+5. application
+
+**서블릿 또는 어플리케이션**의 Context를 나타내는 내부 객체.  
+어플리케이션이 실행되는 서버의 정보, 서버 측 자원에 대한 정보를 얻어내거나 이벤트 로그와 관련된 기능들을 알 수 있다.  
+javax.servlet.ServletContext 객체타입으로 제공한다.
+
+- getServerInfo()
+- getMimeType(fileName)
+- getRealPath(url)
+- log(message)
 
 
+6. pageContext
 
+현재 jsp 페이지 자체의 Context를 나타낸다. pageContext 내부 객체를 통해 다른 내부객체에 접근할 수 있다.  
+`JspWriter pageOut = pageContext.getOut();`
+
+pageContext 객체는 javax.servlet.jsp.PageContext 클래스 타입으로 제공되는 JSP 내부 객체다.
+- getRequest()
+- getResponse()
+- getOut()
+- getSession()
+- getServletContext()
+- getPage()
+- getServletConfig()
+- getException()
 
 
 EL & JSTL
