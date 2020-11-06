@@ -273,6 +273,8 @@ include
 ```
 
 6. action tag
+어떤 동작 또는 액션이 일어나는 시점에 페이지와 페이지 사이에 제어를 이동시킬수도 있고 또 브라우저에서 자바 애플릿을 실행시킬수도 있다.
+
 ```jsp
 <jsp:~ />
 <%--
@@ -284,6 +286,8 @@ include
 - getProperty
 --%>
 ```
+
+include 액션태그는 소스 내용만 포함시키는 include 지시자와 다르게 포함시킬 페이지의 **처리 결과**를 포함시킨다.
 
 ## 내부 객체 (implicit object)
 내부 객체란 jsp 페이지를 작성할 때 특별한 기능을 제공하는 JSP 컨테이너가 제공하는 특별한 객체를 말한다. 즉, 위의 JSP 문법요소들과 함께 동작해 사용자의 요청을 적절히 처리하여 동적으로 HTML을 생성한다.
@@ -299,17 +303,21 @@ include
 6. pageContext
 
 ### 서블릿 관련
+jsp가 변환된 서블릿과 관련된 내용에 접근할 수 있도록 하는 객체
+
 7. page
 8. config
 
 ### 예외 관련
 9. exception
 
-내부 객체 (9가지)
+## 내부 객체 (9가지)
 1. request 객체  
 사용자가 입력한 폼으로부터 특정한 값을 입력하거나 선택한 값을 jsp 페이지 내에서 값을 받아와 처리하기 위해서 사용할 수 있다.  
+스크립트릿 내에 별도의 선언 없이 사용할 수 있다. 왜냐하면 _jspService 메소드에서 이미 선언한 변수들이기 때문이다.  
 HttpServletRequest 객체 타입의 request 객체명을 사용한다.  
-아래 요청 메소드를 이용해 폼 태그로부터 넘어오는 요청정보를 분석할 수 있게 된다.
+아래 요청 메소드를 이용해 폼 태그로부터 넘어오는 요청정보를 분석할 수 있게 된다.  
+
 
 요청 메소드
 - getParameter(name)
@@ -379,7 +387,76 @@ pageContext 객체는 javax.servlet.jsp.PageContext 클래스 타입으로 제�
 - getServletConfig()
 - getException()
 
+7. page
+변환된 서블릿 객체 자체  
+page 객넻는 this 키워드로 자기 자신을 참조할 수 있다. javax.servlet.jsp.HttpJspPage 클래스 타입으로 제공된다. 현재 대부분의 JSP컨테이너가 Java만을 스크립트 언어로 지원하기때문에 page 객체는 거의 사용되지 않는 내부객체다.  
+
+
+
+8. config
+서블릿 초기정보 설정을 맡음.  
+javax.servlet.ServletConfig 클래스 타입의 내부 객체다.
+서블릿이 초기화될 때 참조해야할 다른 여러 정보를 가지고있다가 전해준다.  
+
+- getInitParameterNames()
+- getInitParameter(name)
+- getServletName()
+- getServletContext()
+
+
+9. exception
+프로그래머가 jsp페이지에서 발생한 예외를 처리하는 페이지를 지정한 경우 에러 페이지에 전달되는 예외 객체다. page 지시자의 isErrorPage 속성을 true 로 지정한 jsp 페이지에서만 사용가능한 내부객체다.  
+java.lang.Throwable 클래스 타입으로 제공된다.
+
+- getMessage()
+- toString()
+
+
 
 EL & JSTL
 
 Custom Tag
+
+
+
+web.xml에 적은 <error-page></error-page> 태그보다 <%page errorPage = 'error.jsp'>의 우선순위가 더 높다.
+
+
+
+#### Apache, Tomcat이 다른곳을 바라보고있다?
+Apache는 D:/WebHome을 바라보고있고 (conf/httpd.conf 내의 root)  
+Tomcat은 Tomcat/webapps를 바라보고있다. (conf/server.xml 내의 appBase)
+
+그리고, 이클립스로 웹 프로젝트 만들면 WEB-INF/WebContent에 파일들이 들어가는데 
+얘를 war로 배포하면 WebContent가 다 풀린다! 정상적인 구조가 된다. (마찬가지로 build/classes도 WEB-INF/classes로 들어간다.)
+
+Apache가 webapps를 바라보게하던지, Tomcat과 Apache가 제3의 저장공간을 동시에 보는 형태로 경로를 바꿔줘야한다.  
+ 
+
+## 자바빈즈 JavaBeans
+
+지금까지 jsp 페이지는 디자이너가 이해하기 어렵다는 점, 코드를 재사용하기 힘들다는 점이 있었다. 이 단점들을 개선하기 위해 자바빈즈를 사용하여 복잡한 자바코드로 jsp 페이지가 구성되는것을 피하고 html같은 쉽고 간단한 코드만으로 구성되도록 할 것이다.  
+자바빈즈는 JSP 안의 수많은 자바 코드들이 담당했던 일들을 독립적으로 처리하기 위한 부품과도 같다. jsp 페이지 내에 복잡한 로직을 넣지 않고 자바빈즈와 같은 컴포넌트 기술을 이용하여 효율성, 재사용성 등의 장점을 살릴 수 있다.
+
+### 빈 작성
+1. 변수는 모두 private으로 선언 ( 이 변수를 property라고 부름)
+2. getter, setter 네이밍 룰 지키기
+3. getter, setter 모두 public으로 선언
+4. 자바 빈은 반드시 package 안에 작성해야한다.
+
+### 빈 컴파일
+
+이클립스는 java 파일 작성 후 저장 시 오류나 에러가 없다면 자동으로 컴파일되어 class파일을 생성한다.
+
+- <jsp:useBean id="..." class="..." scope="..."/>
+- <jsp:setProperty name="..." property="..." value="..."/>
+- <jsp:getProperty name="..." property="..."/>
+
+JSP에서 빈을 사용하기 위해서는 <jsp:useBean...> 태그를 사용하게 됩니다. 이 태그 속에는 생성하고자 하는 빈의 이름(id)과 생성을 위해 필요한 클래스(class)의 이름을 지정하게 됩니다. 또한 필요에 따라서 생성한 빈이 살아있는 영역(scope)을 지정하기도 합니다. (언제까지 빈이 살아있도록 설정한건지?)  
+
+#### scope의 종류
+- page
+- request
+- session
+- application
+
