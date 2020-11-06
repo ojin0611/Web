@@ -1,10 +1,8 @@
-# 프로그램 설치
-
-## Apache Tomcat
+# Apache Tomcat
 
 [Tomcat](https://github.com/swacademy/Servlet/blob/master/How%20to%20Install%20Apache%20Tomcat%209%20on%20Windows%2010.pdf)
 
-### Install
+## Install
 https://tomcat.apache.org/download-90.cgi
 
 32-bit/64-bit Windows Service Installer 설치하기
@@ -23,20 +21,20 @@ exe 파일 실행
 서비스에서 실행하면 localhost:8080 으로 접속
 
 
-### 환경설정
+## 환경설정
 conf > xml, properties
 
 [Apache, Tomcat 연동](https://github.com/swacademy/Servlet/blob/master/Apache%202.4%EC%99%80%20Tomcat%209%20%EC%97%B0%EB%8F%99%ED%95%98%EA%B8%B0%20in%20Windows%2010.pdf)
 
 
 
-## Eclipse
+# Eclipse
 
 [설치 링크](https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2020-09/R/eclipse-jee-2020-09-R-win32-x86_64.zip)
 
 Eclipse MarketPlace에서 Tomcatplugin 설치
 
-### 환경설정 (Preferences)
+## 환경설정 (Preferences)
 
 General/Workspace > Encoding  UTF-8
 
@@ -56,7 +54,6 @@ server.xml 파일 21번째 line 수정 (<Server port="8005" shutdown="SHUTDOWN">
 
 
 # Servlet
-
 
 ★최초 유저가 요청할 때부터 유저가 웹페이지를 보게 되는 과정★ 
 
@@ -122,24 +119,42 @@ url = localhost:8080/1028/servlets/servlet/Register
    - 이 때, 이클립스로 web 프로젝트를 만들면 build/classes에 저장되기때문에 톰캣이 위치를 잡지 못한다. 
 
 
-## MySQL Download
+## Servlet으로 한글 쓰기
+
+1. res.setContentType("text/html;charset=utf-8"); 써야하고
+2. pw.println("<meta charset='utf-8'>"); 써야한다
+
+## redirect vs forward
+
+★ redirect  
+- 절대경로를 이용(다른사이트로 이동 가능)  
+- 페이지가 넘어가지만 이름은 넘어가지지 않는다
+
+★ forward  
+- 같은 도메인 내의 상대경로를 이용 (다른 도메인으로 이동 불가능),   
+- buffer에서 조작  
+- forward : 다른 사이트로 넘어갈 수 없지만, 다른 정보를 넘길수는 있다  
+
+
+
+# MySQL Download
 
 [Community](https://dev.mysql.com/downloads/file/?id=499590)
 
 [Workbench](https://dev.mysql.com/downloads/workbench/)
 
-## MariaDB Download
+# MariaDB Download
 
 https://mariadb.org/download/
 
-## Oracle 
+# Oracle 
 
 Oracle XE 184
 
 https://www.oracle.com/kr/database/technologies/appdev/xe.html
 
 
-### War
+## War
 출처: https://dololak.tistory.com/31
 
 WAR(WebApplication Archive)
@@ -148,7 +163,7 @@ WAR란 WebApplication Archive의 약자로 말그대로 웹 어플리케이션 �
 개발한 웹어플리케이션 프로젝트가 WAS에서 돌아갈 수 있는 구조를 담고 있으며 JSP 및 서블릿 빈클래스 등의 소스가 컴파일 되어 저장되며 기타 이미지 및 자원들이 포함되어 있습니다.
  
 
-#### War 배포
+### War 배포
 
 WAS에 웹 어플리케이션을 배포하기 위해서는 톰캣을 기준으로 다음의 세가지 방법이 있습니다.
 
@@ -408,18 +423,46 @@ javax.servlet.ServletConfig 클래스 타입의 내부 객체다.
 프로그래머가 jsp페이지에서 발생한 예외를 처리하는 페이지를 지정한 경우 에러 페이지에 전달되는 예외 객체다. page 지시자의 isErrorPage 속성을 true 로 지정한 jsp 페이지에서만 사용가능한 내부객체다.  
 java.lang.Throwable 클래스 타입으로 제공된다.
 
+web.xml에 적은 <error-page></error-page> 태그보다 <%page errorPage = 'error.jsp'>의 우선순위가 더 높다.
+
 - getMessage()
 - toString()
-
 
 
 EL & JSTL
 
 Custom Tag
 
+### RandomAccessFile
+(3가지 꼭 기억하기)
+1. getFilePointer()
+2. length()
+3. seek()
 
+## 오류
+코드로 수정 가능한 오류 : Exception  
+코드로 수정 불가능한 오류 : Error
 
-web.xml에 적은 <error-page></error-page> 태그보다 <%page errorPage = 'error.jsp'>의 우선순위가 더 높다.
+### include 4가지 방법
+```
+1. RequestDispatcher's include()
+2. pageContext's include()
+3. <jsp:include page="copyright.html" flush="false" />
+4. <%@ include file="copyright.html" %> 
+```
+
+include 지시자는 한 페이지에 모아서 컴파일 (정적페이지가 유리)
+ -단일페이지로 한번 컴파일 (두개의 파일이 1개의 파일로 구성됨)
+  -유저가 1개의 페이지를 받아봄
+  -name, value 를 사용할 수 있음
+  -file
+  -false
+
+include action은 각자 컴파일해서 따로따로 붙인다(동적페이지가 유리)
+ -각자 따로 컴파일
+ -유저는 2개이상의 페이지를 받아봄
+ -page
+ -true
 
 
 
@@ -433,10 +476,59 @@ Tomcat은 Tomcat/webapps를 바라보고있다. (conf/server.xml 내의 appBase)
 Apache가 webapps를 바라보게하던지, Tomcat과 Apache가 제3의 저장공간을 동시에 보는 형태로 경로를 바꿔줘야한다.  
  
 
+### 컴포넌트
+
+1. 컴포넌트란?
+ - 특별한 기능을 수행하기 위해 독립적으로 개발된 코드
+ - 잘 정의된 interface를 가지고
+ - 다른 컴포넌트들과 조립관계에 있고
+ - 웹 응용 프로그램에서 활용가능한
+ - S/W 단위이다
+
+2. 특징
+ - 식별가능 : 패키지
+ - 교체가능
+ - 인터페이스를 통한 접근가능
+ - 독립적으로 테스트/개발가능
+ - 캡슐화
+
+3. 장점
+ - 개발기간 단축
+ - 개발비용 감소
+ - 생산성 증대
+ - 리스크 감소
+ - 일관성 확대
+ - 재사용 / 재활용
+
+4. 단점
+ - 설계기간 연장
+ - 개발자 교육 필요
+
+5. Java Beans
+ - 상속 제한 없음
+ - 반드시 클래스는 패키지화 되어야 한다
+ - 필요에 따라 직렬화 될 수 있다
+ - 필요에 따라 기본생성자를 재정의 할 수 있다
+ - 멤버변수를 property라고 한다
+ - 모든 property는 반드시 private 이어야 한다
+ - private property를 접근하기 위한 메소드는 반드시 public이어야 한다
+ - getter 메소드는 getXxx()형식을 가져야 하며, setter 메소드도 setXxx()의 형식이어야 한다
+    (getName(), setName(), getAge(), setAge())
+ - 만약 property의 데이터타입이 boolean일 경우에는 setXxx()대신 isXxx()를 사용한다
+
+6. 저장위치
+ - WEB-INF/classes
+
 ## 자바빈즈 JavaBeans
 
 지금까지 jsp 페이지는 디자이너가 이해하기 어렵다는 점, 코드를 재사용하기 힘들다는 점이 있었다. 이 단점들을 개선하기 위해 자바빈즈를 사용하여 복잡한 자바코드로 jsp 페이지가 구성되는것을 피하고 html같은 쉽고 간단한 코드만으로 구성되도록 할 것이다.  
 자바빈즈는 JSP 안의 수많은 자바 코드들이 담당했던 일들을 독립적으로 처리하기 위한 부품과도 같다. jsp 페이지 내에 복잡한 로직을 넣지 않고 자바빈즈와 같은 컴포넌트 기술을 이용하여 효율성, 재사용성 등의 장점을 살릴 수 있다.
+
+<jsp:useBean id="" class="packagename.class" scope="page(default)|request|session|application" />
+ 1) id : Java의 식별자 규칙 (영문자, 숫자, '_' 가능)
+ 2) 참조변수
+ 3) 한 jsp 안에서 유일할 값
+
 
 ### 빈 작성
 1. 변수는 모두 private으로 선언 ( 이 변수를 property라고 부름)
@@ -454,9 +546,87 @@ Apache가 webapps를 바라보게하던지, Tomcat과 Apache가 제3의 저장�
 
 JSP에서 빈을 사용하기 위해서는 <jsp:useBean...> 태그를 사용하게 됩니다. 이 태그 속에는 생성하고자 하는 빈의 이름(id)과 생성을 위해 필요한 클래스(class)의 이름을 지정하게 됩니다. 또한 필요에 따라서 생성한 빈이 살아있는 영역(scope)을 지정하기도 합니다. (언제까지 빈이 살아있도록 설정한건지?)  
 
-#### scope의 종류
+#### JSP 변수의 종류(scope, lifecycle)
+scope의 종류
 - page
 - request
 - session
 - application
+
+1) page (pageContext : javax.servlet.jsp.PageContext)
+   - 상태를 저장하지 않는 http protocol(stateless protocol) 때문에 모든 페이지는 정보를 저장하지 않는다.
+   - 현재 페이지에서 만든 정보는 다른 페이지로 넘어갈 때 모두 소멸된다.
+   - 다른 페이지, 다른 사용자, 다른 브라우저 전혀 공유되지 않는다.
+2) request (javax.servlet.http.HttpServletRequest)
+   - forward/include 되는 범위와 lifecycle이 일치한다.
+   - 하지만, 다른 사용자, 다른 브라우저, forward나 include되지 않는 다른 페이지에서는 전혀 공유되지 않는다.
+3) session (java.servlet.http.HttpSession)
+   - 브라우저의 lifecycle과 일치한다.
+   - 방문한 바로 그 사용자만 사용하는 공통변수이다.
+   - 반드시 한 개의 브라우저에서만 공유된다.
+4) application (javax.servlet.ServletContext)
+   - Servlet Context의 lifecycle과 일치
+   - 방문하는 모든 사용자에게 공통(공유, 전역) 변수이다.
+   - 어떤 브라우저도 공유된다.
+
+
+application -> 경로를 다른 주소창에서 열어도 정보가 살아있다 (공통변수)
+session -> 브라우저만 안닫으면 같은 사람이 여러 페이지를 접속해도 정보가 살아있다
+
+param과 value는 상호배타적
+
+
+## 세션과 쿠키
+
+세션은 **서버**가 **클라이언트**의 정보를 저장하고 있다가 새로운 클라이언트 요청이 오면 서버에 저장되어있는 정보를 비교한다.  
+쿠키는 **클라이언트 자신들**에게 클라이언트의 정보를 저장하게 한다. 서버로 전송되는 요청에는 쿠키가 담아둔 정보가 포함된다. 서버는 이 쿠키를 읽고 이전에 요청했던 클라이언트인지 판단할 수 있다.
+
+### 1. URL 새로 쓰기
+
+다음의 실행될 페이지에 파라미터를 붙여서 로그인한 사용자의 아이디를 붙여주면 request 객체를 통해 로그인된 사용자의 아이디를 확인할 수 있다.  
+request.getParameter("sessionid")
+
+보안상 문제가 발생할 수 있다.
+
+
+### 2. 숨겨진 필드
+URL에 직접적인 정보가 노출되지는 않지만 브라우저에서 소스 보기를 통해 정보가 노출될 수 있다.
+
+
+### 3. 쿠키를 구현할 수 있는 쿠키 클래스
+javax.servlet.http 패키지의 Cookie 클래스를 이용한다.
+
+- 쿠키 생성 (꼬리표 만들기)  
+`Cookie myCookie = new Cookie("CookieName", "What a delicious Cookie it is!");`
+
+쿠키 이름과 쿠키 값을 입력인자로 받는다.
+
+- 쿠키 세팅  
+`myCookie.setValue("Wow!");`
+
+쿠키 생성할 때의 값 새롭게 지정
+
+- 쿠키 전달  
+`response.addCookie(myCookie);`
+
+response 객체에 쿠키를 전달한다.
+
+- 쿠키 읽기
+`request.getCookies()`;
+
+- 쿠키 수명주기
+`cookie.setMaxAge(int expiry);`
+
+
+
+### 4. 세션 인터페이스
+javax.servlet.http 패키지의 HttpSession 인터페이스를 통해 세션을 사용할 수 있다.  
+서버와 관련된 정보를 노출시키지 않기 위해 쿠키사용을 지양한다.
+
+클라이언트로부터 발생한 요청에 대해 특정한 ID를 부여하고 이후 발생한 요청들과 비교해 같은 ID인지 구별한다. 이렇게 ID를 다루는 것을 세션이라고 한다. 클라이언트에 식별자(ID)가 저장되고 나머지는 서버에 저장된다.  
+
+- session.setAttribute("mySession", "session value");
+- session.setMaxInactiveInterval(60*5);
+- session.removeAttribute("mySession");
+- session.invalidate();
 

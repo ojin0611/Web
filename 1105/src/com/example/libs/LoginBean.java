@@ -1,8 +1,8 @@
 package com.example.libs;
 
 public class LoginBean{
-	private String userid;
-	private String userpwd;
+	private String userid;  // property
+	private String userpwd; 
 	
 	public LoginBean() {}
 

@@ -1,13 +1,12 @@
 package com.example.libs;
 
 public class Member {
-	private String name;    //property
+	private String name;  // property
 	private int age;
 	private boolean flag;
 	
-	
 	/*
-	 * public Member(String name, int age) { this.name = name; this.age = age; }
+	 * public Member(String name, int age) {this.name = name; this.age = age;} 
 	 */
 	
 	public boolean isFlag() {
