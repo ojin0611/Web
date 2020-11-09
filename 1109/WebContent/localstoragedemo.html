@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Local Storage Demo</title>
+<script>
+  // function check(){
+  //   if(sessionStorage){
+  //     alert("localStorage가 잘 작동됩니다.");
+  //   }else{
+  //     alert("localStorage가 작동이 되지 않습니다.");
+  //   }
+  // }
+  function check(){
+    if(sessionStorage){
+      //localStorage.setItem("username", "한지민");
+      //localStorage.setItem("userage", "24");
+      var obj = {   //JSON 
+        username : '김지민',
+        userage : 24,
+        gender : true,
+        city : "부산시"
+      }
+      sessionStorage.setItem("2020-01", JSON.stringify(obj));
+    }
+  }
+  function check1(){
+    var str = sessionStorage.getItem("2020-01");
+    //console.log(str);
+    var strObj = JSON.parse(str);
+    console.log("이름 : " + strObj.username)
+    console.log("나이 : " + strObj.userage)
+    console.log("성별 : " + strObj.gender)
+    console.log("거주지 : " + strObj.city)
+  }
+  check();
+  check1();
+</script>
+</head>
+<body>
+
+</body>
+</html>

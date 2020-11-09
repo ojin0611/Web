@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>쇼핑몰</title>
+  <script>
+    window.onload = function(){
+      document.getElementById("btnAdd").addEventListener('click', 
+                                        cartAdd, false);
+      document.getElementById("btnRemove").addEventListener('click', 
+                                        cartRemove, false);
+    }
+    function cartAdd(){
+      var str = localStorage.getItem("mycart");
+      if(str){  //이미 cart가 만들어져 있었다면
+        var obj = JSON.parse(str);
+        obj.items.push(document.forms[0].item.value);
+        localStorage.setItem("mycart", JSON.stringify(obj));
+      }else{    //지금 방금 카트를 만들었다면
+        var obj1= {
+          items : []
+        }
+        obj1.items.push(document.forms[0].item.value);
+        localStorage.setItem("mycart", JSON.stringify(obj1));
+      }
+      display();
+    }
+    function display(){
+      var str = localStorage.getItem("mycart");
+      var result = "<ol>";
+      var array = JSON.parse(str).items;
+      for(var i = 0 ; i < array.length ; i++){
+        result += "<li>" + array[i] + "</li>";
+      }
+      result += "</ol>";
+      document.getElementById("result").innerHTML = result;
+    }
+    function cartRemove(){
+      var str = localStorage.getItem("mycart");
+      var obj = JSON.parse(str);
+      var item = document.forms[0].item.value;  //나훈아
+      obj.items.splice(obj.items.indexOf(item), 1);
+      localStorage.setItem("mycart", JSON.stringify(obj));
+      display();
+    }
+  </script>
+</head>
+<body>
+  <h1>구매할 CD를 선택해 주세요.</h1>
+  <form>
+    <select name="item" id="item">
+      <option value="">--선택--</option>
+      <option value="소녀시대">소녀시대</option>
+      <option value="나훈아">나훈아</option>
+      <option value="아이유">아이유</option>
+      <option value="BTS">BTS</option>
+      <option value="박효신">박효신</option>
+      <option value="김희재">김희재</option>
+    </select><br />
+    <input type="button" value="카트에 담기" id="btnAdd">
+    <input type="button" value="카트에서 빼기" id="btnRemove">
+  </form>
+  <div id="result">
+
+  </div>
+</body>
+</html>

@@ -15,6 +15,7 @@ Database를 조작하는 프로그램을 DBMS라고 한다. 그중 관계형 DB�
 
 [Oracle 수업교안]([https://github.com/swacademy/Oracle/blob/master/1.%20Introduction.pdf](https://github.com/swacademy/Oracle/blob/master/1. Introduction.pdf))
 
+[계정생성](https://github.com/swacademy/Oracle/blob/master/What%20to%20do%20after%20Oracle%2012c%20Installation%20in%20Windows.pdf)
 
 
 계정생성방법 (scott)

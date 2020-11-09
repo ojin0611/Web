@@ -1,0 +1,21 @@
+Cookie Lab
+	1)inputCookie.html
+		-form 을 이용해서 다음의 값을 입력한다.
+		-쿠키 이름 : type="text" name="cookie_name"
+		-쿠키 값 : type="text" name="cookie_value"
+		-action:makeCookie.jsp
+		-method : get
+	2)makeCookie.jsp
+		-inputCookie.html에서 넘어온 cookie_name과 cookie_value를 이용하여 cookie를 생성한다.
+		-생성 후 cookie를 발송한 후, displayCookie.jsp로 redirect한다.
+	3)displayCookie.jsp
+		-다음과 같이 지금까지 입력한 쿠키의 이름과 쿠키 값을 한꺼번에 출력한다.
+
+		쿠키 이름 : 쿠키 값
+		==================
+		초코칩 : 3
+		코코넛 : 2
+		오트밀 : 5
+
+		쿠키 입력 화면으로
+		-쿠키 입력 화면으로 링크를 클릭하면 다시 inputCookie.html로 돌아간다.
