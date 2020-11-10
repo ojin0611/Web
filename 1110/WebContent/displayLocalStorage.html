@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="js/jquery-3.5.1.js"></script>
+<script>
+	$(document).ready(function(){
+		var str = "";
+		for(var i = 0 ; i < localStorage.length ; i++){
+			var name = localStorage.key;
+			str += key + " : " + localStorage.getItem(name) + "<br />";
+		}
+		$('#result').html(str);
+		//document.getElementById('result').innerHTML = str;
+	});
+</script>
+</head>
+<body>
+&nbsp;&nbsp;&nbsp;&nbsp;localStorage 이름 : 값<br />
+&nbsp;&nbsp;&nbsp;&nbsp;==================<br />
+    <div id="result"></div>
+    <a href="inputLocalStorage.html">LocalStorage 입력 화면으로</a>
+</body>
+</html>
