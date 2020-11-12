@@ -39,13 +39,94 @@ BEGIN
 	ORDER BY tot DESC;
 END;
 
+CREATE OR REPLACE PROCEDURE sp_student_insert
+(
+    hakbun     IN   student.hakbun%TYPE,
+    name     IN      student.name%TYPE,
+    kor     IN      student.kor%TYPE,
+    eng     IN      student.eng%TYPE,
+    mat     IN      student.mat%TYPE
+)
+IS
+    v_tot     student.tot%TYPE;
+    v_avg     student.avg%TYPE;
+    v_grade     student.grade%TYPE;
+BEGIN
+    v_tot := kor + eng + mat;
+    v_avg := v_tot / 3;
+    IF v_avg >= 90 AND v_avg <= 100 THEN
+        v_grade := 'A';
+    ELSIF v_avg >= 80 THEN
+        v_grade := 'B';
+    ELSIF v_avg >= 70 THEN
+        v_grade := 'C';
+    ELSIF v_avg >= 60 THEN
+        v_grade := 'D';
+    ELSE
+        v_grade := 'F';
+    END IF;
+    
+    INSERT INTO Student 
+    VALUES(hakbun, name, kor, eng, mat, v_tot, v_avg, v_grade);
+    COMMIT;
+END;
 
+CREATE OR REPLACE PROCEDURE sp_select
+(
+    v_hakbun   IN   student.hakbun%TYPE,
+    student_record  OUT    SYS_REFCURSOR
+)
+AS
+BEGIN
+    OPEN student_record FOR
+    SELECT * FROM Student
+    WHERE hakbun = v_hakbun;
+END;
 
+CREATE OR REPLACE PROCEDURE sp_delete
+(
+    v_hakbun   IN   student.hakbun%TYPE
+)
+IS
+BEGIN
+    DELETE FROM Student
+    WHERE hakbun = v_hakbun;
+    COMMIT;
+END;
 
-
-
-
-
+CREATE OR REPLACE PROCEDURE sp_update
+(
+    v_hakbun   IN   student.hakbun%TYPE,
+    v_kor      IN   student.kor%TYPE,
+    v_eng      IN   student.eng%TYPE,
+    v_mat      IN   student.mat%TYPE
+)
+IS
+    v_tot      student.tot%TYPE;
+    v_avg      student.avg%TYPE;
+    v_grade    student.grade%TYPE;
+BEGIN
+    v_tot := v_kor + v_eng + v_mat;
+    v_avg := v_tot / 3;
+    IF v_avg >= 90 AND v_avg <= 100 THEN
+        v_grade := 'A';
+    ELSIF v_avg >= 80 THEN
+        v_grade := 'B';
+    ELSIF v_avg >= 70 THEN
+        v_grade := 'C';
+    ELSIF v_avg >= 60 THEN
+        v_grade := 'D';
+    ELSE
+        v_grade := 'F';
+    END IF;
+    
+    UPDATE Student
+    SET kor = v_kor, eng = v_eng, mat = v_mat,
+    tot = v_tot, avg = v_avg, grade = v_grade
+    WHERE hakbun = v_hakbun;
+    
+    COMMIT;
+END;
 
 
 

@@ -156,7 +156,7 @@
 
       <Context docBase="1030" path="/1030" reloadable="true" source="org.eclipse.jst.jee.server:1030"/>
       <Context docBase="1102" path="/1102" reloadable="true" source="org.eclipse.jst.jee.server:1102"/>
-      <Context docBase="1104" path="/1104" reloadable="true" source="org.eclipse.jst.jee.server:1104"/><Context docBase="1103" path="/1103" reloadable="true" source="org.eclipse.jst.jee.server:1103"/><Context docBase="1106" path="/1106" reloadable="true" source="org.eclipse.jst.jee.server:1106"/><Context docBase="1109" path="/1109" reloadable="true" source="org.eclipse.jst.jee.server:1109"/><Context docBase="1110" path="/1110" reloadable="true" source="org.eclipse.jst.jee.server:1110"/><Context docBase="sungjukmgmt" path="/sungjukmgmt" reloadable="true" source="org.eclipse.jst.jee.server:sungjukmgmt"/></Host>
+      <Context docBase="1104" path="/1104" reloadable="true" source="org.eclipse.jst.jee.server:1104"/><Context docBase="1103" path="/1103" reloadable="true" source="org.eclipse.jst.jee.server:1103"/><Context docBase="1106" path="/1106" reloadable="true" source="org.eclipse.jst.jee.server:1106"/><Context docBase="1109" path="/1109" reloadable="true" source="org.eclipse.jst.jee.server:1109"/><Context docBase="1110" path="/1110" reloadable="true" source="org.eclipse.jst.jee.server:1110"/><Context docBase="sungjukmgmt" path="/sungjukmgmt" reloadable="true" source="org.eclipse.jst.jee.server:sungjukmgmt"/><Context docBase="1112" path="/1112" reloadable="true" source="org.eclipse.jst.jee.server:1112"/></Host>
     </Engine>
   </Service>
 </Server>

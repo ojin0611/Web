@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>입력 페이지</title>
+
+<link rel = "stylesheet"  href = "css/bootstrap.css">
+<!-- bootstrap 들어온 다음 사용 -->
+<style>     
+    .container {
+        padding-right : 10%;
+        padding-left : 10%;
+    }
+</style>
+<script src = "js/jquery-3.5.1.js"></script>
+
+</head>
+<body>
+
+    <h1 class = "text-center">입력 페이지</h1>
+    <div class="container">         <!--반응형 웹을 위해  form밖에 div 생성.-->
+        <div class="row">
+              <!-- Horizontal form 양식-->
+            <form class="form-horizontal"  action = "input.jsp"  method = "POST">
+              
+                <div class="form-group">
+                  <label for="rdoKing1" class="col-sm-2 control-label">구분</label>
+                  <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" name="kind" id="rdoKind1" value="1"   checked> 영업용
+                                        <!-- (20행)라벨의 for = input의 id-->
+                                        <!-- name이 VO의 이름, DB의 이름와 같으면 편함.-->      
+                                        <!-- checked : 기본으로 체크 되어지는 값.-->
+                                        <!-- value : 서버로 넘어가는 값.-->
+                      </label>
+
+                      <label class="radio-inline">
+                        <input type="radio" name="kind" id="rdoKind2" value="2"> 관청용
+                      </label>
+
+                      <label class="radio-inline">
+                        <input type="radio" name="kind" id="rdoKind3" value="3"> 가정용
+                      </label>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="txtTel" class="col-sm-2 control-label">전화번호</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name = "tel" id="txtTel" placeholder="전화번호 입력"  required>     <!-- placeholder : 입력창에 뜨는 텍스트, required : 필수요소-->
+                    </div>
+                  </div>
+
+                <div class="form-group">
+                    <label for="txtName" class="col-sm-2 control-label">이름</label>
+                    <div class="col-sm-10">
+                      <input type="text"  name = "name" class="form-control" id="txtName" placeholder="이름 입력"  required>     <!-- placeholder : 입력창에 뜨는 텍스트, required : 필수요소-->
+                    </div>
+                  </div>
+                
+                  <div class="form-group">
+                    <label for="txtQuantity" class="col-sm-2 control-label">통화량</label>
+                    <div class="col-sm-10">
+                      <input type="number"  min = "0"  name = "quantity" class="form-control" id="txtQuantity" placeholder="통화량 입력"  required>     <!-- placeholder : 입력창에 뜨는 텍스트, required : 필수요소-->
+                    </div>
+                  </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                          <button type="submit" class="btn btn-success">입력</button>
+                          <button type="reset" class="btn btn-warning">취소</button>
+                        </div>
+                      </div>
+
+                   
+            </form>
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -3,13 +3,16 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 	id="WebApp_ID" version="4.0">
-	<display-name>Welcome to 성적관리프로그램</display-name>
+	<display-name>Welcome To 1112</display-name>
+
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+		<welcome-file>list.jsp</welcome-file>		<!--  Main Page -->
 	</welcome-file-list>
+
 	<servlet>
-		<servlet-name>DBCPInit</servlet-name>
+		<servlet-name>DBCPInit</servlet-name>				<!-- DBCPInit을 먼저 만들고 index.html로 이동 -->
 		<servlet-class>com.example.libs.model.DBCPInit</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+
 </web-app>

@@ -1,10 +1,10 @@
 package com.example.libs.model;
 
-import java.sql.Connection;  
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+  
 public class DBClose {
 	public static void close(Connection conn) {
 		try {

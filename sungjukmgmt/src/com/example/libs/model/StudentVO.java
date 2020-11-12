@@ -1,6 +1,6 @@
 package com.example.libs.model;
 
-public class StudentVO {
+public class StudentVO {  
 	private String hakbun;
 	private String name;
 	private int kor;
@@ -10,6 +10,17 @@ public class StudentVO {
 	private double avg;
 	private String grade;
 	
+	
+	public StudentVO() {}
+	
+	public StudentVO(String hakbun, String name, int kor, int eng, int mat) {
+		this.hakbun = hakbun;
+		this.name = name;
+		this.kor = kor;
+		this.eng = eng;
+		this.mat = mat;
+	}
+
 	public String getHakbun() {
 		return hakbun;
 	}
