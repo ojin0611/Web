@@ -612,7 +612,7 @@ javax.servlet.http 패키지의 Cookie 클래스를 이용한다.
 response 객체에 쿠키를 전달한다.
 
 - 쿠키 읽기
-`request.getCookies()`;
+`request.getCookies();`
 
 - 쿠키 수명주기
 `cookie.setMaxAge(int expiry);`
@@ -630,3 +630,36 @@ javax.servlet.http 패키지의 HttpSession 인터페이스를 통해 세션을 
 - session.removeAttribute("mySession");
 - session.invalidate();
 
+
+## Connection Pooling
+[수업자료](https://github.com/swacademy/JSP/blob/master/8.%20Using%20Connection%20Pooling%20with%20DBCP.pdf)
+
+[필요파일 다운로드는 아파치에서](http://commons.apache.org/)
+
+dbcp, pool, logging 
+
+최신버전 받고, 맨 처음 나오는 jar 파일들을 WebContents/WEB-INF/lib 에 넣어주자.
+
+이클립스에서 DBCPInit 파일을 설정하자
+
+
+# Linux
+
+https://ubuntu.com/
+
+https://releases.ubuntu.com/18.04.5/?_ga=2.154705915.2131607309.1605143237-1776142886.1605143237
+
+
+## 랜카드 설치
+
+어댑터1 NAT  
+MAC 주소 (MAC Address) : 080027311D0C  
+Linux 안에서 보면 enp0s3, IPv4 : 10.0.2.15    
+
+
+어댑터2 호스트 전용어댑터  
+MAC 주소 (MAC Address) : 080027D29A93  
+Linux 안에서 보면 enp0s8, IPv4 : 192.168.56.01  
+목표는 이 친구를 고정IP로 바꾸는 것.
+
+2 = Web Server, 3 = WAS, 4 = DB Server  
