@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+        version="2.0">
+    <tlib-version>1.0</tlib-version>
+    <short-name>mytag</short-name>
+    <function>
+    	<name>mymethod</name>
+    	<function-class>com.example.libs.ElDemo</function-class>
+    	<function-signature>java.lang.String getFormat()</function-signature>
+    </function>
+    <function>
+    	<name>empinfo</name>
+    	<function-class>com.example.libs.GetEmployee</function-class>
+    	<function-signature>java.lang.String getEmp(java.lang.String)</function-signature>
+    </function>
+</taglib>

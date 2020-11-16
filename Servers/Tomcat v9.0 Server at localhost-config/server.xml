@@ -156,7 +156,29 @@
 
       <Context docBase="1030" path="/1030" reloadable="true" source="org.eclipse.jst.jee.server:1030"/>
       <Context docBase="1102" path="/1102" reloadable="true" source="org.eclipse.jst.jee.server:1102"/>
-      <Context docBase="1104" path="/1104" reloadable="true" source="org.eclipse.jst.jee.server:1104"/><Context docBase="1103" path="/1103" reloadable="true" source="org.eclipse.jst.jee.server:1103"/><Context docBase="1106" path="/1106" reloadable="true" source="org.eclipse.jst.jee.server:1106"/><Context docBase="1109" path="/1109" reloadable="true" source="org.eclipse.jst.jee.server:1109"/><Context docBase="1110" path="/1110" reloadable="true" source="org.eclipse.jst.jee.server:1110"/><Context docBase="sungjukmgmt" path="/sungjukmgmt" reloadable="true" source="org.eclipse.jst.jee.server:sungjukmgmt"/><Context docBase="1112" path="/1112" reloadable="true" source="org.eclipse.jst.jee.server:1112"/></Host>
+      <Context docBase="1104" path="/1104" reloadable="true" source="org.eclipse.jst.jee.server:1104"/><Context docBase="1103" path="/1103" reloadable="true" source="org.eclipse.jst.jee.server:1103"/><Context docBase="1106" path="/1106" reloadable="true" source="org.eclipse.jst.jee.server:1106"/><Context docBase="1109" path="/1109" reloadable="true" source="org.eclipse.jst.jee.server:1109"/><Context docBase="1110" path="/1110" reloadable="true" source="org.eclipse.jst.jee.server:1110"/><Context docBase="sungjukmgmt" path="/sungjukmgmt" reloadable="true" source="org.eclipse.jst.jee.server:sungjukmgmt"/><Context docBase="1112" path="/1112" reloadable="true" source="org.eclipse.jst.jee.server:1112"/>
+      <Context docBase="1113" path="/1113" reloadable="true" source="org.eclipse.jst.jee.server:1113">
+      <Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" 
+      maxActive="50" maxIdle="10" maxWait="1000" 
+      name="jdbc/myoracle" password="tiger" 
+      type="javax.sql.DataSource" 
+      url="jdbc:oracle:thin:@localhost:1521:XE" 
+      username="scott"/>
+	  </Context>
+      
+      <Context docBase="salmgmt" path="/salmgmt" reloadable="true" source="org.eclipse.jst.jee.server:salmgmt"/>
+      
+      
+      <Context docBase="1116" path="/1116" reloadable="true" source="org.eclipse.jst.jee.server:1116">
+      <Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" 
+      maxActive="50" maxIdle="10" maxWait="10000" 
+      name="jdbc/myoracle" password="tiger" 
+      type="javax.sql.DataSource" 
+      url="jdbc:oracle:thin:@localhost:1521:XE" 
+      username="scott"/>
+	  </Context>
+	</Host>
+	
     </Engine>
   </Service>
 </Server>

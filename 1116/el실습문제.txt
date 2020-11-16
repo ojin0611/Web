@@ -1,0 +1,19 @@
+실습문제
+1. employee.html
+   Name : <input type='text' name='ename'>
+   <input type='submit' value='검색'>
+
+2. employee.jsp
+   1)파라미터로 넘어온 ename을 el로 받아서
+   2)<h1>scott's Info</h1>
+ ${eldemo:empinfo(scott)} --> class-name : GetEmployee, 
+                                 method-name : String getEmp(String ename)
+      <ul>
+        <li>이름 : </li>
+        <li>월급 : </li>
+        <li>직무 : </li>
+        <li>입사일 : </li>
+        <li>소속 부서명 : </li>
+        <li>근무지 : </li>
+     </ul>
+    3)JNDI를 이용한 ConnectionPool을 사용할 것

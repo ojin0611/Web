@@ -547,11 +547,12 @@ Apache가 webapps를 바라보게하던지, Tomcat과 Apache가 제3의 저장�
 JSP에서 빈을 사용하기 위해서는 <jsp:useBean...> 태그를 사용하게 됩니다. 이 태그 속에는 생성하고자 하는 빈의 이름(id)과 생성을 위해 필요한 클래스(class)의 이름을 지정하게 됩니다. 또한 필요에 따라서 생성한 빈이 살아있는 영역(scope)을 지정하기도 합니다. (언제까지 빈이 살아있도록 설정한건지?)  
 
 #### JSP 변수의 종류(scope, lifecycle)
-scope의 종류
-- page
-- request
-- session
-- application
+4개의 객체 범위
+- page 영역
+- request 영역
+- session 영역
+- application 영역  
+scope 범위는 page < request < session < application 순이라는 것을 알 수 있습니다. 
 
 1) page (pageContext : javax.servlet.jsp.PageContext)
    - 상태를 저장하지 않는 http protocol(stateless protocol) 때문에 모든 페이지는 정보를 저장하지 않는다.
@@ -630,6 +631,33 @@ javax.servlet.http 패키지의 HttpSession 인터페이스를 통해 세션을 
 - session.removeAttribute("mySession");
 - session.invalidate();
 
+# JDBC로 데이터베이스 연동
+
+## JDBC
+```java
+/*
+1. Class.forName() 을 이용해서 드라이버 로드
+2. DriverManager.getConnection() 으로 연결 얻기
+3. Connection 인스턴스를 이용해서 Statement 객체 생성
+4. Statement 객체의 결과를 ResultSet 이나 int에 받기
+*/
+	private static String DBURL = "jdbc:oracle:thin:@localhost:1521:XE";
+	private static String DBDRIVER = "oracle.jdbc.driver.OracleDriver";
+	private static String DBUSER = "scott";
+	private static String DBPWD = "tiger";
+
+	Class.forName(DBDRIVER);   //1
+	Connection conn = DriverManager.getConnection(DBURL, DBUSER, DBPWD); //2
+	Statement stmt = conn.createStatement();   //3
+	String sql = "SELECT TO_CHAR(sysdate, 'yyyy-mm-dd') FROM dual";
+	ResultSet rs = stmt.executeQuery(sql);    //4
+
+```
+
+### Class.forName("myString")
+> A call to forName("X") causes the class named X to be initialized.  
+> Returns:  
+> the Class object for the class with the specified name.
 
 ## Connection Pooling
 [수업자료](https://github.com/swacademy/JSP/blob/master/8.%20Using%20Connection%20Pooling%20with%20DBCP.pdf)
@@ -643,14 +671,28 @@ dbcp, pool, logging
 이클립스에서 DBCPInit 파일을 설정하자
 
 
-# Linux
+## JNDI
+[수업자료](https://github.com/swacademy/JSP/blob/master/9.%20Using%20Connection%20Pooling%20with%20JNDI.pdf)
+
+`2. Lab` 내용은 이클립스 내에 있는 server.xml 내의 Context 수정해주는 것.
+
+<Resource> Tag 안에 넣기만 하면 된다~
+
+
+# Linux 설치
+
+가상머신에 설치한다.
 
 https://ubuntu.com/
 
-https://releases.ubuntu.com/18.04.5/?_ga=2.154705915.2131607309.1605143237-1776142886.1605143237
+## Desktop Ver
+
+Desktop Ver. 설치 파일 : https://releases.ubuntu.com/18.04.5/?_ga=2.154705915.2131607309.1605143237-1776142886.1605143237
+
+가상머신에 이 CD를 넣고 실행시킨다고 생각하면 된다.
 
 
-## 랜카드 설치
+### 랜카드 설치
 
 어댑터1 NAT  
 MAC 주소 (MAC Address) : 080027311D0C  
@@ -663,3 +705,20 @@ Linux 안에서 보면 enp0s8, IPv4 : 192.168.56.01
 목표는 이 친구를 고정IP로 바꾸는 것.
 
 2 = Web Server, 3 = WAS, 4 = DB Server  
+
+## Ubuntu 설치 후에 해야하는 일들
+
+https://github.com/swacademy/Ubuntu/blob/master/2.Installation%20Ubuntu%2018.04%20LTS%20%26%206%20Things%20to%20do%20After%20Installation%20Ubuntu.pdf
+
+
+### 크롬 설치 
+https://coding-factory.tistory.com/498
+
+
+### 아파치 설치 
+https://github.com/swacademy/Ubuntu/blob/master/Installation%20Apache2.4%20on%20Ubuntu%20Server%2018.04%20LTS.pdf
+
+
+# Server Ver
+
+
