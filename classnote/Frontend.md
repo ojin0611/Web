@@ -151,3 +151,16 @@ toLocaleString() 메서드는 배열의 요소를 나타내는 문자열을 반�
 EventTarget의 addEventListener() 메서드는 지정한 이벤트가 대상에 전달될 때마다 호출할 함수를 설정합니다. 일반적인 대상은 Element, Document, Window지만, XMLHttpRequest와 같이 이벤트를 지원하는 모든 객체를 대상으로 지정할 수 있습니다.
 
 addEventListener()는 EventTarget의 주어진 이벤트 유형에, EventListener를 구현한 함수 또는 객체를 이벤트 처리기 목록에 추가해 작동합니다.
+
+
+## jQuery
+```javascript
+<script src="js/jquery-3.5.1.js"></script>
+<script>
+    $(document).ready(function(){ // ready가 되면 function을 실행해라
+        $('#btnRegister').on('click', function(){
+            location.href = "register.html";
+        })
+    })
+</script>
+```

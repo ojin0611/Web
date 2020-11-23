@@ -428,11 +428,6 @@ web.xml에 적은 <error-page></error-page> 태그보다 <%page errorPage = 'err
 - getMessage()
 - toString()
 
-
-EL & JSTL
-
-Custom Tag
-
 ### RandomAccessFile
 (3가지 꼭 기억하기)
 1. getFilePointer()
@@ -631,6 +626,14 @@ javax.servlet.http 패키지의 HttpSession 인터페이스를 통해 세션을 
 - session.removeAttribute("mySession");
 - session.invalidate();
 
+
+
+
+
+
+
+
+
 # JDBC로 데이터베이스 연동
 
 ## JDBC
@@ -670,6 +673,10 @@ dbcp, pool, logging
 
 이클립스에서 DBCPInit 파일을 설정하자
 
+DBCPInit.java 에서 oracle의 주소를 적어준다. DBURL, DBPASSWORD 등..  
+
+
+
 
 ## JNDI
 [수업자료](https://github.com/swacademy/JSP/blob/master/9.%20Using%20Connection%20Pooling%20with%20JNDI.pdf)
@@ -678,47 +685,53 @@ dbcp, pool, logging
 
 <Resource> Tag 안에 넣기만 하면 된다~
 
-
-# Linux 설치
-
-가상머신에 설치한다.
-
-https://ubuntu.com/
-
-## Desktop Ver
-
-Desktop Ver. 설치 파일 : https://releases.ubuntu.com/18.04.5/?_ga=2.154705915.2131607309.1605143237-1776142886.1605143237
-
-가상머신에 이 CD를 넣고 실행시킨다고 생각하면 된다.
+1. 프로젝트/lib에 jar 넣고
+2. 프로젝트/web.xml에 해당db 뭐시기 적기
+3. 가짜서버/server.xml에 해당db 리소스 적기
 
 
-### 랜카드 설치
-
-어댑터1 NAT  
-MAC 주소 (MAC Address) : 080027311D0C  
-Linux 안에서 보면 enp0s3, IPv4 : 10.0.2.15    
 
 
-어댑터2 호스트 전용어댑터  
-MAC 주소 (MAC Address) : 080027D29A93  
-Linux 안에서 보면 enp0s8, IPv4 : 192.168.56.01  
-목표는 이 친구를 고정IP로 바꾸는 것.
 
-2 = Web Server, 3 = WAS, 4 = DB Server  
+# EL & JSTL
+## EL
 
-## Ubuntu 설치 후에 해야하는 일들
+## JSTL
+WEB-INF/lib에 taglibs 관련 jar 2개 넣고 시작한다.
 
-https://github.com/swacademy/Ubuntu/blob/master/2.Installation%20Ubuntu%2018.04%20LTS%20%26%206%20Things%20to%20do%20After%20Installation%20Ubuntu.pdf
+표준 태그 라이브러리(JSP Standard Tag Library)에서 제공되는 태그의 종류는 5가지다.
+
+- core
+- formatting
+- sql
+- xml
+- functions
+
+### core 태그
+사용하기 위해선 taglib 지시자 선언해야한다.
+```jsp
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+```
+
+core에서 사용되는 태그들은 다음과 같다.
+
+```
+<c:out> jsp페이지에 출력하는 태그 (<%= ... %>와 동일)
+<c:set> 4개 영역의 JSP 저장소에 변수를 선언하는 태그
+<c:remove> 4개 영역의 JSP 저장소에 선언된 변수 제거
+
+<c:if> if문과 같은 기능의 조건 선언하는 태그
+<c:choose>
+<c:when>
+<c:otherwise>
+
+<c:forEach>
+<c:forTokens>
 
 
-### 크롬 설치 
-https://coding-factory.tistory.com/498
+```
 
 
-### 아파치 설치 
-https://github.com/swacademy/Ubuntu/blob/master/Installation%20Apache2.4%20on%20Ubuntu%20Server%2018.04%20LTS.pdf
 
-
-# Server Ver
-
-
+## Custom Tag
+Custom Tag

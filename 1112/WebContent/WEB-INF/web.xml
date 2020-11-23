@@ -6,7 +6,7 @@
 	<display-name>Welcome To 1112</display-name>
 
 	<welcome-file-list>
-		<welcome-file>list.jsp</welcome-file>		<!--  Main Page -->
+		<welcome-file>index.html</welcome-file>		<!--  Main Page -->
 	</welcome-file-list>
 
 	<servlet>

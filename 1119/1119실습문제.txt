@@ -1,0 +1,22 @@
+1. JNDI를 이용하여 다음의 조건을 만족하는 getemployees.jsp 페이지를 완성하시오.
+	1)각 부서별 부서번호, 부서명, 부서별인원수, 평균 봉급, 평균 재직기간
+	2)Stored Procedure : sp_department_info
+	3)평균 봉급은 소수점 둘째자리까지 출력
+	4)평균 재직기간은 년수로 표시
+	5)완성된 jsp페이지에는 JSTL과 EL로만 출력
+	6)부서이름 내림차순으로
+
+CREATE OR REPLACE PROCEDURE sp_department_info
+(     deptinfo_records      OUT    SYS_REFCURSOR    )
+AS
+BEGIN
+    OPEN deptinfo_records FOR
+    SELECT e.deptno AS deptid, dname AS deptname, 
+           COUNT(*) AS cnt, ROUND(AVG(e.sal), 2) AS avg_sal, 
+           TRUNC(AVG(MONTHS_BETWEEN(SYSDATE, e.hiredate)) / 12) AS avg_year
+    FROM  emp e INNER JOIN dept d 
+          ON e.deptno = d.deptno
+    GROUP BY e.deptno, dname
+    ORDER BY dname DESC;
+END;
+/
