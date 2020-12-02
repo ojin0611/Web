@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="js/jquery-3.5.1.js"></script>
+<script>
+  $(document).ready(function(){
+    $('#btn').click(function(){
+      let xhr = new XMLHttpRequest();   //1
+      xhr.open('GET', 'books.xml', true);  //2
+      xhr.onreadystatechange = function(){   //4
+        if(xhr.readyState == 4 && xhr.status == 200){
+          let str = "";
+          let docs = xhr.responseXML;
+          let books = docs.getElementsByTagName('book');
+          for(let i = 0 ; i < books.length ; i++){
+            let book = books.item(i);
+            let title = book.getElementsByTagName('title').item(0);
+            let author = book.getElementsByTagName('author').item(0);
+            str += title.firstChild.nodeValue + "(" + 
+                    author.firstChild.nodeValue + ")\n";
+          }
+          alert(str);
+        }
+      }
+      xhr.send(null);      //3
+    });
+  });
+
+</script>
+</head>
+<body>
+  <button id="btn">책 정보를 alert 으로 출력</button>
+</body>
+</html>

@@ -1,0 +1,14 @@
+Custom Tag 실습
+Emp table과 Dept table에서 다음의 정보를 가져오는 커스텀 태그 작성하기
+1)사원번호, 사원명, 직무, 부서명, 부서위치, 부서번호
+2)customtagdemo5.jsp
+  <h1>쌍용주식회사 사원명단</h1>
+  <emp:dept deptno="10" order="desc"></emp:dept>
+3)태그 접두사 : emp
+4)태그 이름 : dept
+5)속성 : 
+   - order : desc | asc, 내림차순/오름차순 결정하는 속성
+   - deptno : 10 | 20 | 30, 해당 부서번호를 가져오는 속성
+6)tld 이름 : mycustom.tld
+7)Class 이름 : MyCompany.java
+8)2.0 버전 이상에서 SimpleTagSupport 상속받는 Custome Tag로 작성할 것

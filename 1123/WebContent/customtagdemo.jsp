@@ -1,0 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="aaa" uri="/WEB-INF/tlds/ccc.tld" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<aaa:bbb /><br />
+	<h1>Custom Tag Example</h1>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>전자신문 오늘의 뉴스</title>
+<link rel="stylesheet" href="css/bootstrap.css">
+<script src="js/jquery-3.5.1.js"></script>
+<script>
+  $(function(){
+    $.ajax({
+      method : 'GET',
+      url : 'proxy_etnews.jsp',
+      dataType : 'xml',
+      success : function(xml){
+        myparsor(xml);
+      }
+    });
+  });
+  function myparsor(xml){
+    let str = "";
+    let cnt = 1;
+    let array = xml.getElementsByTagName('item');
+    for(let i = 0 ; i < array.length ; i++){
+      let item = array[i];
+      let title = item.getElementsByTagName('title')[0].firstChild.nodeValue;
+      let author = item.getElementsByTagName('author')[0].firstChild.nodeValue;
+      let pubDate = item.getElementsByTagName('pubDate')[0].firstChild.nodeValue;
+      let link = item.getElementsByTagName('link')[0].firstChild.nodeValue;
+      pubDate = new Date(pubDate.trim());
+      str += "<tr>";
+      str += "<td>" + cnt++ + "</td>" +
+             "<td><a href='" + link.trim() + "' target='_blank'>" + title.trim() + "</a></td>" +
+             "<td>" + author.trim() + "</td>" + 
+             "<td>" + pubDate.toLocaleDateString() + "</td>";
+      str += "</tr>";
+    }
+    $('tbody').html(str);
+  }
+</script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <h1 class="text-center">전자신문 오늘의 뉴스</h1>
+      <table class="table table-bordered">
+        <thead>
+          <tr class="success">
+            <th style="width:5%">No.</th>
+            <th style="width:75%">기사제목</th>
+            <th style="width:10%">작성자</th>
+            <th style="width:10%">날짜</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

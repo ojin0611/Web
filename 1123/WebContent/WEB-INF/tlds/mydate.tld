@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+						http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+	<description>JSP Custom Tag 1.2 연습 태그</description>
+	<tlib-version>1.0</tlib-version>
+	<short-name>mylib</short-name>
+	<tag>
+		<description>오늘 날짜와 시간은 아주 자세히 출력하는 태그</description>
+		<name>date1</name>
+		<tag-class>com.example.libs.MyDate</tag-class>
+		<body-content>empty</body-content>
+	</tag>
+	<tag>
+		<description>오늘 날짜와 시간을 유저가 원하는 전경색과 배경색으로 출력하는 태그</description>
+		<name>date2</name>
+		<tag-class>com.example.libs.MyDate1</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>fg</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>bg</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>

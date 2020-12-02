@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Break Neck Pizza Delivery</title>
+  <link rel="stylesheet" type="text/css" href="css/breakneck.css" media="screen" />
+  <script src="js/jquery-3.5.1.js"></script>
+  <script>
+    var xhr = null;
+    $(document).ready(function(){
+      $('#txtPhone').on('change', function(){
+        xhr = new XMLHttpRequest();   //1
+        xhr.onreadystatechange = myresult;
+        xhr.open('POST', 'lookupCustomer.jsp', true);  //2
+        xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
+        xhr.send('phone=' + $(this).val().trim());   //3
+      });
+    });
+    function myresult(){
+      if(xhr.readyState == 4 && xhr.status == 200){
+        $('#address').html(xhr.responseText.trim());
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div>
+    <p><img src="images/pizzahut.jpg" alt="Break Neck Pizza" /></p>
+    <form method="POST" action="placeOrder.jsp">
+      <p><label for="phone">Enter your phone number:</label>
+        <input type="text" size="30" name="phone" id="txtPhone" />
+      </p>
+      <p><label>Your order will be delivered to:</label></p>
+      <p><textarea name="address" rows="4" cols="60" id="address"></textarea></p>
+      <p>Type your order in here:</p>
+      <p><textarea name="order" rows="6" cols="60" id="order"></textarea></p>
+      <p><input type="submit" value="Order Pizza" id="submit" /></p>
+    </form>
+  </div>
+</body>
+
+</html>

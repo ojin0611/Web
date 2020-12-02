@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/jquery-3.5.1.js"></script>
+<script>
+  var xmlObj = null;
+  $(document).ready(function(){
+    $('#btn').click(function(){
+      xmlObj = new XMLHttpRequest();  //1
+      xmlObj.open("GET", "sungjuk_utf8.xml", true);   //2
+      xmlObj.onreadystatechange = callback;   //4
+      xmlObj.send(null);   //3
+    });
+  });
+  function callback(){
+    if(xmlObj.readyState == 4 && xmlObj.status == 200){
+      $('#rcvMsg').html(displayHeader());
+      myparsor(xmlObj.responseXML); //매우 주의할 것
+    }
+  }
+  function displayHeader(){
+    var str = "<h2>성적 데이터(XML)</h2>";
+    str += "<table><thead><tr>";
+    str += "<th>학번</th><th>이름</th><th>국어</th><th>영어</th><th>수학</th><th>전산</th>";
+    str += "<th>총점</th><th>평균</th><th>학점</th></tr></thead>";
+    str += "<tbody></tbody>";
+    str += "</table>";
+    return str;
+  }
+  function myparsor(data){
+  	let str = "";
+    let students = data.firstChild;
+    let array = students.getElementsByTagName('student');
+    for(let i = 0 ; i < array.length ; i++){
+      str += "<tr>";
+      let student = array[i];
+      let hakbun = student.getAttribute('hakbun');
+      let irum = student.getElementsByTagName('irum').item(0).firstChild.nodeValue;
+      let kor = student.getElementsByTagName('kor').item(0).firstChild.nodeValue;
+      let eng = student.getElementsByTagName('eng').item(0).firstChild.nodeValue;
+      let mat = student.getElementsByTagName('mat').item(0).firstChild.nodeValue;
+      let edp = student.getElementsByTagName('edp').item(0).firstChild.nodeValue;
+      str += "<td>" + hakbun + "</td><td>" + irum + "</td><td>" + kor + "</td>" +
+             "<td>" + eng + "</td><td>" + mat + "</td><td>" + edp + "</td>";
+      let sum = parseInt(kor.trim()) + parseInt(eng.trim()) + parseInt(mat.trim()) + parseInt(edp.trim());
+      let avg = sum / 4.;
+      avg = avg.toFixed(2);
+      let grade = (avg <= 100 && avg >= 90) ? 'A' :
+                    (avg < 90 && avg >= 80) ? 'B' :
+                      (avg < 80 && avg >= 70) ? 'C' :
+                          (avg < 70 && avg >= 60) ? 'D' : 'F';
+      str += "<td>" + sum + "</td><td>" + avg + "</td><td>" + grade + "</td>";
+      str += "</tr>";
+    }
+    $('tbody').html(str);
+  }
+</script>
+</head>
+<body>
+  <input type="button" id="btn" value="성적데이터수신(XML)" /><br />
+  <div id="rcvMsg"></div>
+</body>
+</html>

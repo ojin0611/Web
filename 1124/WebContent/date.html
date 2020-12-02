@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+  window.onload = function(){
+    document.querySelector("#txtNow").addEventListener('click', function(){
+      var xhr = new XMLHttpRequest();  //1
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+          var result = xhr.responseText;    //화 11월 24 11:35:01 KST 2020
+          document.querySelector("#txtNow").value = result;
+        }
+      }     //4
+      xhr.open('GET', 'date.jsp', true);  //2
+      xhr.send(null);                   //3
+    }, false);
+  }
+</script>
+</head>
+<body>
+  Now : <input type="text" id="txtNow" size="30"/>
+</body>
+</html>

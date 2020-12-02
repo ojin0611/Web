@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/style.css" />
+<script src="js/jquery-3.5.1.js"></script>
+<script>
+  /*var xmlObj;
+  $(document).ready(function(){
+    $('#btn').click(function(){
+      xmlObj = new XMLHttpRequest();  //1.
+      xmlObj.open("GET", "sungjuk_utf8.csv");  //2
+      xmlObj.onreadystatechange = callback;    //4
+      xmlObj.send(null);    //3
+    });
+  });*/
+  $(document).ready(function(){
+  	$('#btn').click(function(){
+  		$.ajax({
+  			type : 'GET',
+  			url : 'sungjuk_utf8.csv',
+  			success : function(serverdata){
+  				$('#rcvMsg').html(displayHeader());
+  				myparsor(serverdata);
+  			}
+  		});
+  	});
+  });
+  
+  /*function callback(){
+    if(xmlObj.readyState == 4 && xmlObj.status == 200){
+      $('#rcvMsg').html(displayHeader());
+      myparsor(xmlObj.responseText)
+    }
+  }*/
+  function displayHeader(){
+    var str = "<h2>성적 데이터(CSV)</h2>";
+    str += "<table><thead><tr>";
+    str += "<th>학번</th><th>이름</th><th>국어</th><th>영어</th><th>수학</th><th>전산</th>";
+    str += "<th>총점</th><th>평균</th><th>학점</th></tr></thead>";
+    str += "<tbody></tbody>";
+    str += "</table>";
+    return str;
+  }
+  function myparsor(data){
+    var str = "";
+    var array = data.split("\n");   //방 12개
+    for(var i = 0 ; i < array.length ; i++){
+      str += "<tr>";
+      var array1 = array[i].split(",");  //방 6개
+      for(var j = 0 ; j < array1.length ; j++){
+        str += "<td>" + array1[j].trim() + "</td>";
+      }
+      var sum = parseInt(array1[2].trim()) + parseInt(array1[3].trim()) +
+                parseInt(array1[4].trim()) + parseInt(array1[5].trim());
+      var avg = sum / 4.;
+      avg = avg.toFixed(2);
+      var grade = (avg <= 100 && avg >= 90) ? 'A' :
+                    (avg < 90 && avg >= 80) ? 'B' :
+                      (avg < 80 && avg >= 70) ? 'C' :
+                          (avg < 70 && avg >= 60) ? 'D' : 'F';
+      str += "<td>" + sum + "</td><td>" + avg + "</td><td>" + grade + "</td>";
+      str += "</tr>";
+    }
+    $('tbody').html(str);
+  } 
+</script>
+</head>
+<body>
+  <input type="button" id="btn" value="성적데이터수신(CSV)" /><br />
+  <div id="rcvMsg"></div>
+</body>
+</html>

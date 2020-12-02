@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Insert title here</title>
+  <script src="js/jquery-3.5.1.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#btnsend').click(function () {
+        $.ajax({
+          url: "http://localhost:8080/1124/servlets/servlet/ParameterPost",
+          type: "POST",
+          data: {   //서버로 보낼 데이터
+            name: $('#name').val(),
+            age: $('#age').val(),
+            phone: $('#phone').val()
+          },
+          success: function (serverdata) {   //서버에서 보내온 데이터
+            $('#resultDisplay').html(serverdata);
+          }
+        });
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <form>
+    <h3>Ajax With Servlet</h3>
+    이름 : <input id="name" type="text" /><br />
+    나이 : <input id="age" type="text" /><br />
+    핸드폰번호 : <input id="phone" type="text" /><br />
+    <input id="btnsend" type="button" value="Servlet 에게 요청하기" /><br />
+  </form>
+  <div id="resultDisplay"></div>
+</body>
+
+</html>

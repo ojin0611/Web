@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" href="css/bootstrap.css">
+<script src="js/jquery-3.5.1.js"></script>
+<script>
+  let xhr = null;
+  $(document).ready(function(){
+    xhr = new XMLHttpRequest();   //1.
+    xhr.open('GET', 'getemployees.jsp', true);  //2
+    xhr.onreadystatechange = callback;   //4.
+    xhr.send(null);  //3.
+  });
+
+  function callback(){
+    if(xhr.readyState == 4 && xhr.status == 200){
+      myparsor(xhr.responseText);
+    }
+  }
+
+  function myparsor(serverdata){
+  	let mystr = "";
+  	let idx = serverdata.lastIndexOf(",");  //만일 100번째
+    let str = serverdata.substring(0, idx) + "]}";
+    str = str.trim();
+    let obj = JSON.parse(str);   //이제 문자열에서 객체가 되었다.
+    if(obj.code == "success"){
+    	let array = obj.data;   //방이 14개, 14명 사원이니까
+    	for(var i = 0 ; i < array.length ; i++){
+    		mystr += "<tr>";
+    		mystr += "<td>" + array[i].empno + "</td>" + 
+    		         "<td>" + array[i].ename + "</td>" +
+    		         "<td>" + array[i].job + "</td>" +
+    		         "<td>" + array[i].dname + "</td>" +
+    		         "<td>" + array[i].loc + "</td>" + 
+    		         "<td>" + array[i].deptno + "</td>";
+    		mystr += "</tr>";
+    	}
+    	$('tbody').html(mystr);
+    }
+  }
+</script>
+</head>
+<body>
+  <h1 class="text-center">쌍용주식회사 사원명단</h1>
+  <div class="container">
+    <div class="row">
+      <table class="table table-bordered">
+        <thead>
+          <tr class="success">
+            <th>사원번호</th><th>사원이름</th>
+            <th>직무</th><th>부서명</th>
+            <th>부서위치</th><th>부서번호</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

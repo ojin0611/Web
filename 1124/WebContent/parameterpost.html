@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ajax Post 방식 요청 페이지</title>
+<script>
+  window.onload = function(){
+    //document.querySelector('#postSend').addEventListener('click', myclick, false);
+    document.querySelector('#phone').addEventListener('blur', myBlur, false);
+  }
+  var xhr = null;
+  //function myclick(){
+  function myBlur(){
+    //1. 객체 생성
+    xhr = new XMLHttpRequest();
+    //4. response 처리
+    xhr.onreadystatechange = myResult;
+    //2. open()
+    let name = document.querySelector('#name').value;
+    let age = document.querySelector('#age').value;
+    let phone = document.querySelector('#phone').value;
+    let param = 'name=' + name + '&age=' + age + '&phone=' + phone;
+    xhr.open('post', 'servlets/servlet/ParameterPost', true);
+    //3. send()
+    xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
+    xhr.send(param);
+  }
+  function myResult(){
+    if(xhr.readyState == 4 && xhr.status == 200){
+      document.querySelector('#resultDisplay').innerHTML = xhr.responseText;
+    }
+  }
+</script>
+</head>
+<body>
+  <form>
+    <h3>POST방식으로 요청파라미터 보내기</h3>
+    이름: <input id="name" type="text" /><br/>
+    나이: <input id="age" type="text" /><br/>
+    휴대폰: <input id="phone" type="text" /><br/>
+  </form>
+  <h3>응답 결과</h3>
+  <div id="resultDisplay"></div>
+</body>
+</html>

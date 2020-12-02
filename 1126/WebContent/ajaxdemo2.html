@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Insert title here</title>
+  <script>
+    var xhrObj;
+    window.addEventListener("load", setup, false);
+    function setup() {
+      xhrObj = new XMLHttpRequest();  //1
+      xhrObj.open("get", "member_json.jsp", true);   //2
+      xhrObj.onreadystatechange = callback;   //4
+      xhrObj.send(null);   //3
+    }
+    function callback() {
+      if (xhrObj.readyState == 4 && xhrObj.status == 200) {
+        //var jsonobj = eval("(" + xhrObj.responseText + ")");
+        var jsonobj = JSON.parse(xhrObj.responseText);
+        if (jsonobj.code == "success") {
+          var m = jsonobj.data.member;
+          alert(m.irum + " [ " + m.id + " ] " + m.juminnum);
+        }
+      }
+    }
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

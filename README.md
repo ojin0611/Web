@@ -1,4 +1,17 @@
 # Web
-Oracle + JDBC + HTML5
+DB + Frontend + Backend
 
-classnote : 수업내용 정리
+Oracle
+
+HTML
+CSS
+JavaScript
+jQuery
+
+Servlet
+JSP
+JDBC
+ajax
+
+
+[필기](https://www.notion.so/yyj/c551f5b288bd4fb097f1707d6a62941a)

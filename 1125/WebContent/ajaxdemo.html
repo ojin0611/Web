@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Insert title here</title>
+  <script src="js/jquery-3.5.1.js"></script>
+  <script> 
+    var xhr;
+    $(document).ready(function(){
+      $('#btn').click(send);
+    }); 
+
+    function send() {
+      xhr = new XMLHttpRequest();   //1. 
+      xhr.open("GET", "greeting_utf8.txt", true);  //2. 
+      xhr.onreadystatechange = callback;    //4
+      xhr.send(null);  //3.
+    } 
+    function callback() {
+      if (xhr.readyState == 4 && xhr.status == 200) { 
+        document.getElementById("rcvMsg").innerHTML = 
+            xhr.responseText; 
+      }
+    } 
+  </script>
+</head>
+
+<body>
+  <input type="button" id="btn" value="한글데이터수신" /><br />
+  <div id="rcvMsg"></div>
+</body>
+
+</html>
